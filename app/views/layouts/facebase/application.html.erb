@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Facebase</title>
+    <%= stylesheet_link_tag    "facebase/application", :media => "all" %>
+    <%= javascript_include_tag "facebase/application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="header"></div>
+
+    <div class="clear"></div>
+
+    <div id="nav_wrapper">
+      <div id="nav">
+        <div id="table">
+          <ul>
+            <li>
+              <a href="#"><span>Dashboard</span></a>
+
+              <div class="subnav_wrapper">
+                <ul>
+                  <li><a href="#">Dummy Link</a></li>
+                  <li><a href="#">Dummy Link</a></li>
+                  <li><a href="#">Dummy Link</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="nav_divider"></div>
+
+          <ul>
+            <li>
+              <a href="#"><span>Dummy Link 1</span></a>
+            
+              <div class="subnav_wrapper">
+                <ul>
+                  <li><a href="#">Dummy Link 1</a></li>
+                  <li><a href="#">Dummy Link 2</a></li>
+                  <li><a href="#">Dummy Link 3</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="content_wrapper">
+        <div id="content">
+          <%= yield %>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="footer">
+      <div id="footer_content">
+        Footer information goes here.
+      </div>
+
+      <div class="clear"></div>
+    </div>
+  </body>
+</html>

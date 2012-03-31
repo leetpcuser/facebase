@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  address: MyString
+  port: 1
+  domain: MyString
+  user_name: MyString
+  password: MyString
+  authentication: MyString
+  enable_starttls_auto: false
+  enable_sendgrid_tracking: false
+  enable_auto_google_analytics: false
+
+two:
+  name: MyString
+  address: MyString
+  port: 1
+  domain: MyString
+  user_name: MyString
+  password: MyString
+  authentication: MyString
+  enable_starttls_auto: false
+  enable_sendgrid_tracking: false
+  enable_auto_google_analytics: false

@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @email_service_provider.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @email_service_provider.address %>
+</p>
+
+<p>
+  <b>Port:</b>
+  <%= @email_service_provider.port %>
+</p>
+
+<p>
+  <b>Domain:</b>
+  <%= @email_service_provider.domain %>
+</p>
+
+<p>
+  <b>User name:</b>
+  <%= @email_service_provider.user_name %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @email_service_provider.password %>
+</p>
+
+<p>
+  <b>Authentication:</b>
+  <%= @email_service_provider.authentication %>
+</p>
+
+<p>
+  <b>Enable starttls auto:</b>
+  <%= @email_service_provider.enable_starttls_auto %>
+</p>
+
+<p>
+  <b>Enable sendgrid tracking:</b>
+  <%= @email_service_provider.enable_sendgrid_tracking %>
+</p>
+
+<p>
+  <b>Enable auto google analytics:</b>
+  <%= @email_service_provider.enable_auto_google_analytics %>
+</p>
+
+
+<%= link_to 'Edit', edit_email_service_provider_path(@email_service_provider) %> |
+<%= link_to 'Back', email_service_providers_path %>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  adapter: MyString
+  host: MyText
+  username: MyString
+  password: MyString
+  database: MyString
+  pool: 1
+  encoding: MyString
+  reconnect: false
+  socket: MyString
+
+two:
+  adapter: MyString
+  host: MyText
+  username: MyString
+  password: MyString
+  database: MyString
+  pool: 1
+  encoding: MyString
+  reconnect: false
+  socket: MyString

@@ -1,0 +1,41 @@
+<h1>Listing email_service_providers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Port</th>
+    <th>Domain</th>
+    <th>User name</th>
+    <th>Password</th>
+    <th>Authentication</th>
+    <th>Enable starttls auto</th>
+    <th>Enable sendgrid tracking</th>
+    <th>Enable auto google analytics</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @email_service_providers.each do |email_service_provider| %>
+  <tr>
+    <td><%= email_service_provider.name %></td>
+    <td><%= email_service_provider.address %></td>
+    <td><%= email_service_provider.port %></td>
+    <td><%= email_service_provider.domain %></td>
+    <td><%= email_service_provider.user_name %></td>
+    <td><%= email_service_provider.password %></td>
+    <td><%= email_service_provider.authentication %></td>
+    <td><%= email_service_provider.enable_starttls_auto %></td>
+    <td><%= email_service_provider.enable_sendgrid_tracking %></td>
+    <td><%= email_service_provider.enable_auto_google_analytics %></td>
+    <td><%= link_to 'Show', email_service_provider %></td>
+    <td><%= link_to 'Edit', edit_email_service_provider_path(email_service_provider) %></td>
+    <td><%= link_to 'Destroy', email_service_provider, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Email service provider', new_email_service_provider_path %>

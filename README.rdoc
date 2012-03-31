@@ -1,0 +1,88 @@
+= Facebase
+
+Mysql compatable only
+
+This is a extensive facebook user management system built on a sharded mysql
+database system.
+
+= Setup
+
+As a starting point you will need at least 1 redis server for row locks
+and a mysql node with two databases (one as the primary shard, and a config
+database). Can be fairly small (5mb or so)
+
+There are two ways to install facebase. You can use it on a single project
+and just install the gem or you can use it across many projects as a centralized
+user store. In both cases simply follow the instructions below. Configuration
+settings will be different
+
+= Install the gem
+
+For both types of install you will need to complete the following instructions
+first. Just copy and paste away.
+
+Add "facebase" to your gem file
+
+ gem "facebase"
+
+Install the initalizer and setup the settings appropriately for your setup
+
+  $ rails g facebase:initializer
+
+Create a new folder called 'shard_migrations' in root/db
+
+  $ mkdir ./db/shard_migrations
+
+Install the migrations and move all shard migrations to the new folder.
+
+  $ mv db/migrate/*_shard_*.rb ./db/shard_migrations/
+
+Create your config server databases
+
+  $ rake db:create
+
+Migrate your config server
+
+  $ rake db:migrate
+
+Create your shards datbases
+
+  $ rake facebase:db:create
+
+Migrate your shards
+
+  $ rake facebase:db:migrate
+
+Add the facebase routes by mounting the engine (in routes.rb)
+
+  mount Facebase::Engine => "/facebase"
+
+Boot your webserver
+
+  $ rails s
+
+= Install the shards
+
+Add shards via the web interface navigate to localhost:3000/facebase/shards
+and use the interface to add all the connection settings for your shards
+(principle model will always be 'profile' for this releases)
+
+  localhost:3000/facebase/shards
+
+Finally initialize your shards to their initial auto increment starting points
+
+  $ rake facebase:db:initialize_shards
+
+= Config
+
+ See the facebase.rb initializer file in config/initializers (docs included)
+
+= Scaling
+
+As you start scaling the system from a few hundred to billions you will need
+to add shards to handle the increased size of the database. More shards allow
+for more data storage, more ram per row, and scaled writes.
+
+
+
+This project rocks and uses MIT-LICENSE.

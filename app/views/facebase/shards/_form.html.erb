@@ -1,0 +1,80 @@
+<%= form_for(@shard) do |f| %>
+  <% if @shard.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shard.errors.count, "error") %> prohibited this shard
+        from being saved:</h2>
+
+      <ul>
+        <% @shard.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :adapter %>
+    <br/>
+    <%= f.text_field :adapter %>
+  </div>
+  <div class="field">
+    <%= f.label :host %>
+    <br/>
+    <%= f.text_area :host %>
+  </div>
+  <div class="field">
+    <%= f.label :socket %>
+    <br/>
+    <%= f.text_field :socket %>
+  </div>
+  <div class="field">
+    <%= f.label :username %>
+    <br/>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %>
+    <br/>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :database %>
+    <br/>
+    <%= f.text_field :database %>
+  </div>
+  <div class="field">
+    <%= f.label :pool %>
+    <br/>
+    <%= f.number_field :pool %>
+  </div>
+  <div class="field">
+    <%= f.label :encoding %>
+    <br/>
+    <%= f.text_field :encoding %>
+  </div>
+  <div class="field">
+    <%= f.label :reconnect %>
+    <br/>
+    <%= f.check_box :reconnect %>
+  </div>
+  <div class="field">
+    <%= f.label :principle_model %>
+    <br/>
+    <%= f.text_field :principle_model %>
+  </div>
+  <div class="field">
+    <%= f.label :auto_increment_start %>
+    <br/>
+    <%= f.text_field :auto_increment_start %>
+  </div>
+  <div class="field">
+    <%= f.label :auto_increment_range %>
+    <br/>
+    <%= f.text_field :auto_increment_range %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,143 @@
+<p>
+  FB Application<br>
+  <input type="text" id="app_id" value="286615521350769"/>
+</p>
+<p>
+  Logged in as<br>
+  <span id="name"/>
+</p>
+
+<p>
+  Campaign<br>
+  <input type="text" id="campaign" value="2012-birthday-reminders"/>
+</p>
+<p>
+  Stream<br>
+  <input type="text" id="stream" value="d-time"/>
+</p>
+<p>
+  Component<br>
+  <input type="text" id="component" value="email_time"/>
+</p>
+
+<input type="button" value="Preview" id="preview_btn"/>
+<input type="button" value="Login" id="login"/>
+<input type="button" value="Send Mail" id="send_mail"/>
+
+<h2>
+  Preview
+</h2>
+
+<div id="preview"></div>
+
+<div id="fb-root"></div>
+
+<style type="text/css">
+  #preview{
+    width: 790px;
+  }
+</style>
+<script>
+
+window.fbAsyncInit = function () {
+  FB.Event.subscribe('auth.login', function(response) {
+    // do something with response
+    console.log(response);
+  });
+  FB.init({
+    appId:"<%= 286615521350769 %>",
+    status:true, // check login status
+    frictionlessRequests:true,
+    cookie:true // enable cookies to allow the server to access the session
+  });
+  if(!FB._authResponse){
+    FB.login();
+  }
+  $("#name").html(FB._userID);
+  FB.Canvas.setAutoGrow();
+
+};
+
+// Load the Facebook SDK Asynchronously
+(function (d) {
+  var js, id = 'facebook-jssdk';
+  if (d.getElementById(id)) {
+    return;
+  }
+  js = d.createElement('script');
+  js.id = id;
+  js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js";
+  d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
+
+/*
+ Standalone FB Mailer call
+*/
+function sendMessage(_msg){
+  FB.api({
+    method : 'notifications.sendEmail',
+    recipients : FB._userID,
+    subject : 'Welcome to Davia',
+    fbml : _msg,
+    text : _msg,
+    access_token : FB._authResponse.accessToken
+  },function(response){
+    alert(response);
+  });
+}
+
+function getAndSend(){
+  var dataString = "";
+  dataString += "campaign=" + $("#campaign").val();
+  dataString += "&stream=" + $("#stream").val();
+  dataString += "&component=" + $("#component").val();
+
+  $.ajax({
+    url: "/facebase/email/preview?" + dataString,
+    success: function(data){
+      sendMessage(data);
+      $("#preview").html(data);
+    },
+    error : function(){
+      alert("NO GO.");
+    }
+  });
+}
+
+//Ultimate laziness
+function justGet(){
+  var dataString = "";
+  dataString += "campaign=" + $("#campaign").val();
+  dataString += "&stream=" + $("#stream").val();
+  dataString += "&component=" + $("#component").val();
+
+  $.ajax({
+    url: "/facebase/email/preview?" + dataString,
+    success: function(data){
+      //sendMessage(data);
+      $("#preview").html(data);
+    },
+    error : function(){
+      alert("NO GO.");
+    }
+  });
+}
+
+function reLogin(){
+  FB.init({
+    appId:$("#app_id"),
+    status:true, // check login status
+    frictionlessRequests:true,
+    cookie:true // enable cookies to allow the server to access the session
+  });
+  FB.login();
+}
+
+$(function(){
+  $("#login").bind("click",reLogin);
+  $("#send_mail").bind("click",getAndSend);
+  $("#preview_btn").bind("click",justGet);
+});
+
+</script>

@@ -1,0 +1,100 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Profile:</b>
+  <%= @contact.profile_id %>
+</p>
+
+<p>
+  <b>Email address:</b>
+  <%= @contact.email_address %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @contact.phone %>
+</p>
+
+<p>
+  <b>Purchase count:</b>
+  <%= @contact.purchase_count %>
+</p>
+
+<p>
+  <b>Purchase total:</b>
+  <%= @contact.purchase_total %>
+</p>
+
+<p>
+  <b>Unsubscribe phone:</b>
+  <%= @contact.unsubscribe_phone %>
+</p>
+
+<p>
+  <b>Unsubscribe facebook:</b>
+  <%= @contact.unsubscribe_facebook %>
+</p>
+
+<p>
+  <b>Unsubscribed email:</b>
+  <%= @contact.unsubscribed_email %>
+</p>
+
+<p>
+  <b>Invalid email:</b>
+  <%= @contact.invalid_email %>
+</p>
+
+<p>
+  <b>Spam email:</b>
+  <%= @contact.spam_email %>
+</p>
+
+<p>
+  <b>Bounced email:</b>
+  <%= @contact.bounced_email %>
+</p>
+
+<p>
+  <b>Emails delivered:</b>
+  <%= @contact.emails_delivered %>
+</p>
+
+<p>
+  <b>Times emails opened:</b>
+  <%= @contact.times_emails_opened %>
+</p>
+
+<p>
+  <b>Times emails clicked:</b>
+  <%= @contact.times_emails_clicked %>
+</p>
+
+<p>
+  <b>Last contacted at:</b>
+  <%= @contact.last_contacted_at %>
+</p>
+
+<div style="Emails">
+  <h3>Emails Sent</h3>
+  <% @contact.emails.each do |email| %>
+    <div class="Email">
+      <h3>
+        <a target="_blank" href="facebase/emails/<%= email.composite_id %>">
+          <%= email.subject %>
+        </a>
+      </h3>
+      <% email.email_actions.each do |action| %>
+        <p>
+          Action: <%= action.action_type %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+<%=  debug @contact %>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

@@ -1,0 +1,176 @@
+body {
+    background: #fff;
+    color: #393939;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+#header {
+    background: url(/assets/facebase/header_background.jpg) top center repeat-x;
+    border-bottom: 1px solid #7e7e7e;
+    height: 92px;
+}
+
+#header_info {
+    margin: 0 auto;
+    max-width: 1260px;
+    min-width: 850px;
+    position: relative;
+}
+
+#logo {
+    float: left;
+    margin: 45px 0 0 15px;
+}
+
+.clear {
+    clear: both;
+}
+
+#nav_wrapper {
+    background: url(/assets/facebase/nav/background.jpg) repeat-x;
+    height: 77px;
+}
+
+#nav {
+    float: left;
+    font-family: Tahoma;
+    font-size: 13px;
+    height: 38px;
+    min-width: 600px;
+    position: relative;
+    width: 600px;
+    z-index: 10;
+}
+
+#table {
+    display: table;
+}
+
+#nav ul {
+    display: table-cell;
+    float: left;
+    list-style: none;
+    margin: 0 0px 0 0;
+    padding: 0px;
+    white-space: nowrap;
+}
+
+#nav ul li {
+    float: left;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav ul li a {
+    color: #fff;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 37px;
+    line-height: 35px;
+    padding: 0 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#nav ul li:hover a,
+#nav ul li a:hover {
+    background: url(/assets/facebase/nav/nav_hover.gif);
+    color: #fff;
+    cursor: pointer;
+    padding: 0 0 0 10px;
+}
+
+#nav ul li a:hover span,
+#nav ul li:hover a span	{
+    background: url(/assets/facebase/nav/nav_hover.gif) right top;
+    cursor: pointer;
+    display: block;
+    float: left;
+    padding: 0 20px 0 10px;
+}
+
+#nav ul :hover .subnav_wrapper {
+    background: url(/assets/facebase/nav/subnav.gif);
+    display: block;
+    left: 0px;
+    padding: 0px;
+    position: absolute;
+    text-align: left;
+    top: 37px;
+    width: 750px;
+    z-index: 20;
+}
+
+.nav_divider	{
+    background: url(/assets/facebase/nav/divider.jpg) top no-repeat;
+    float: left;
+    height: 40px;
+    width: 15px;
+}
+
+.subnav_wrapper {
+    display: none;
+    margin: 0 0 0 10px;
+}
+
+.subnav_wrapper ul {
+    display: table;
+    float: none;
+}
+
+#nav ul li:hover ul a,
+#nav ul li a:hover ul a {
+    background: none;
+    padding: 0 20px 0 10px;
+}
+
+#nav ul li:hover ul a:hover,
+#nav ul li a:hover ul a:hover {
+    color: #94B52C;
+}
+
+#content_wrapper {
+    background: url(/assets/facebase/content_background.jpg) repeat-x;
+}
+
+#content {
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 auto 0 auto;
+    max-width: 1260px;
+    min-width: 780px;
+    padding: 35px 20px;
+}
+
+#content h1 {
+    color: #4B4B4B;
+    font-family: Tahoma;
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 0 15px 0;
+    padding: 0px;
+}
+
+#footer {
+    height: 70px;
+    margin: 80px auto 0;
+    max-width: 1260px;
+    min-width: 780px;
+}
+
+#footer_content {
+    border-bottom: 1px solid #DBDBDB;
+    border-top: 1px solid #DBDBDB;
+    color: #818181;
+    font-size: 11px;
+    line-height: 11px;
+    margin: 0 20px;
+    padding: 15px 0 15px 25px;
+}

@@ -1,0 +1,268 @@
+$tan: #efede6
+$light_gray: #e6e6e6
+
+// html
+//   background-color: #efede6
+
+body
+  font-family: Arial, sans-serif
+  font-size: 14px
+
+#container
+  width: 1150px
+  margin: auto
+  background-color: $tan
+
+#header
+  background-color: #3c4143
+  padding: 5px 10px 15px 20px
+
+  #title
+    font-size: 3em
+    text-align: right
+    color: #8cbd2e
+    font-weight: bold
+    margin: 10px 12px 0 0
+
+#content
+  padding: 30px 20px 10px
+
+#main
+  border: 4px solid $light_gray
+  background-color: white
+  padding: 9px 15px 10px
+
+h1
+  font-size: 34px
+  font-family: 'Oswald', Times
+
+h3
+  font-size: 18px
+  margin-bottom: 5px
+
+a
+  text-decoration: none
+  color: #6079ab
+
+a:hover
+  text-decoration: underline
+
+.bordered
+  border: 1px solid red
+
+.below
+  margin-top: 20px
+
+.invisible
+  display: none
+
+.clear
+  clear: both
+
+.smaller
+  font-size: .8em
+
+.error
+  color: red
+
+/*** Viral Paths index ***/
+table
+  width: 100%
+  margin-top: 20px
+th
+  font-weight: bold
+  font-size: 1.1em
+
+td, th
+  padding: 2px 7px
+
+tr.top_row td
+  border-top: 1px solid $light_gray
+  padding-top: 4px
+
+tr.bottom_row td
+  padding-bottom: 4px
+  border-bottom: 1px solid $light_gray
+
+.tan_background
+  background-color: #f9f9f6
+
+.double_row
+  border-bottom: 1px solid $light_gray
+
+/*** Viral Tempate ***/
+.facebook
+  color: #3B5998
+
+tr.hidden
+  background-color: #ddd
+
+/*** Viral Path form ***/
+.standalone
+  margin-top: 50px
+  background-color: $tan
+  padding: 10px
+
+form li
+  margin-top: 10px
+
+.right_edge
+  display: block
+  float: left
+  margin-right: 15px
+  text-align: right
+  width: 100px
+
+.right_edge_submit
+  margin-left: 115px
+
+/*** Viral Path show ***/
+tr.outlined_row td
+  border-top: 1px solid $light_gray
+  border-bottom: 1px solid $light_gray
+  padding-top: 4px
+  padding-bottom: 4px
+
+ul#header_links
+  display: inline
+  float: right
+  margin-top: 30px
+  font-size: .9em
+
+ul#header_links li
+  display: inline
+
+ul#header_links li:before
+  content: ' | '
+
+ul#header_links li.first:before
+  content: ' '
+
+/*** Stream Post ***/
+#preview_form
+  width: 450px
+  float: left
+
+.stream_post
+  width: 405px
+  font-family: Lucida Grande, Verdana
+  font-size: 11px
+  color: #777777
+  padding: 5px
+  .picture
+    float: left
+    padding-right: 10px
+    margin-bottom: 3px
+    max-height: 90px
+    max-width: 90px
+  .data
+    display: table-cell
+  .name
+    font-weight: bold
+    color: #333
+    padding-top: 3px
+  .caption
+    color: #808080
+    padding-top: 3px
+  .description
+    color: #808080
+    padding-top: 3px
+  .bottom
+    margin-top: 7px
+    color: #808080
+    height: 16px
+    img
+      float: left
+      margin-right: 5px
+    .fake_text
+      line-height: 16px
+
+  input.form_field
+    width: 300px
+
+  input#action
+    width: 120px
+
+  textarea.form_field
+    width: 300px
+    overflow: auto
+    height: 50px
+
+  .faux_link
+    color: #3B5998
+    // specifying important on the color is not enough.  not sure why.
+    a
+      color: #3B5998
+    &:hover
+      text-decoration: underline
+      cursor: pointer
+#template_submit
+  margin-top: 10px
+
+div.links
+  margin-top: 10px
+  .link
+    float: right
+    input
+      width: 330px
+  .label
+    float: left
+
+#photo_upload
+  height: 90px
+  width: 90px
+
+
+#placeholder
+  height: 88px
+  width: 88px
+  border: 1px solid black
+  background-color: #999
+
+img#spinner
+  margin-top: 23px
+
+#guide
+  margin-left: 480px
+
+.replacement_variable
+  display: block
+  float: left
+  margin-right: 15px
+  text-align: right
+  width: 175px
+  // border: 1px solid
+
+/*** Experiments ***/
+
+table.experiments td
+  border-bottom: 1px solid #ccc
+
+table.experiments td.first
+  border-top: 1px solid #ccc
+
+input.short
+  width: 30px
+
+td.medium
+  width: 120px
+
+/*** Custom ***/
+.option_column
+  width: 297px
+  margin: 0 25px
+  display: inline-block
+  vertical-align: top
+
+
+.option_column h2
+  font-size: 24px
+  font-family: "Oswald", Times, sans-serif
+
+h2
+  font-size: 24px
+  font-family: 'Oswald', Times
+
+#updated_ago
+  font-size: 12px
+  margin: 10px 30px 0 0

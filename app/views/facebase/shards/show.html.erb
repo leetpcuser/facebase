@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Adapter:</b>
+  <%= @shard.adapter %>
+</p>
+
+<p>
+  <b>Host:</b>
+  <%= @shard.host %>
+</p>
+
+<p>
+  <b>Socket:</b>
+  <%= @shard.socket %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%= @shard.username %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @shard.password %>
+</p>
+
+<p>
+  <b>Database:</b>
+  <%= @shard.database %>
+</p>
+
+<p>
+  <b>Pool:</b>
+  <%= @shard.pool %>
+</p>
+
+<p>
+  <b>Encoding:</b>
+  <%= @shard.encoding %>
+</p>
+
+<p>
+  <b>Reconnect:</b>
+  <%= @shard.reconnect %>
+</p>
+
+<p>
+  <b>Principle Model:</b>
+  <%= @shard.principle_model %>
+</p>
+
+<p>
+  <b>Auto Increment Start:</b>
+  <%= @shard.auto_increment_start %>
+</p>
+
+<p>
+  <b>Auto Increment Range:</b>
+  <%= @shard.auto_increment_range %>
+</p>
+
+<%= link_to 'Edit', edit_shard_path(@shard) %> |
+<%= link_to 'Back', shards_path %>

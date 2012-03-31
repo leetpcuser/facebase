@@ -1,0 +1,77 @@
+<%= form_for(@contact) do |f| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% @contact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :profile_id %><br />
+    <%= f.number_field :profile_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email_address %><br />
+    <%= f.text_field :email_address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_count %><br />
+    <%= f.number_field :purchase_count %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_total %><br />
+    <%= f.text_field :purchase_total %>
+  </div>
+  <div class="field">
+    <%= f.label :unsubscribe_phone %><br />
+    <%= f.check_box :unsubscribe_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :unsubscribe_facebook %><br />
+    <%= f.check_box :unsubscribe_facebook %>
+  </div>
+  <div class="field">
+    <%= f.label :unsubscribed_email %><br />
+    <%= f.check_box :unsubscribed_email %>
+  </div>
+  <div class="field">
+    <%= f.label :invalid_email %><br />
+    <%= f.check_box :invalid_email %>
+  </div>
+  <div class="field">
+    <%= f.label :spam_email %><br />
+    <%= f.check_box :spam_email %>
+  </div>
+  <div class="field">
+    <%= f.label :bounced_email %><br />
+    <%= f.check_box :bounced_email %>
+  </div>
+  <div class="field">
+    <%= f.label :emails_delivered %><br />
+    <%= f.number_field :emails_delivered %>
+  </div>
+  <div class="field">
+    <%= f.label :times_emails_opened %><br />
+    <%= f.number_field :times_emails_opened %>
+  </div>
+  <div class="field">
+    <%= f.label :times_emails_clicked %><br />
+    <%= f.number_field :times_emails_clicked %>
+  </div>
+  <div class="field">
+    <%= f.label :last_contacted_at %><br />
+    <%= f.datetime_select :last_contacted_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  occurs_at: 2012-03-05 09:22:21
+  event_type: MyString
+  source: MyString
+  times_executed: 1
+  last_executed_at: 2012-03-05 09:22:21
+  priority: 1
+  repeats_yearly: false
+  repeats_monthly: false
+  repeats_weekly: false
+  details: MyText
+
+two:
+  occurs_at: 2012-03-05 09:22:21
+  event_type: MyString
+  source: MyString
+  times_executed: 1
+  last_executed_at: 2012-03-05 09:22:21
+  priority: 1
+  repeats_yearly: false
+  repeats_monthly: false
+  repeats_weekly: false
+  details: MyText

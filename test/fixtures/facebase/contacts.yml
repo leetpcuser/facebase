@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  profile_id: 1
+  email_address: MyString
+  phone: MyString
+  purchase_count: 1
+  purchase_total: 9.99
+  unsubscribe_phone: false
+  unsubscribe_facebook: false
+  unsubscribed_email: false
+  invalid_email: false
+  spam_email: false
+  bounced_email: false
+  emails_delivered: 1
+  times_emails_opened: 1
+  times_emails_clicked: 1
+  last_contacted_at: 2012-03-09 12:21:57
+
+two:
+  profile_id: 1
+  email_address: MyString
+  phone: MyString
+  purchase_count: 1
+  purchase_total: 9.99
+  unsubscribe_phone: false
+  unsubscribe_facebook: false
+  unsubscribed_email: false
+  invalid_email: false
+  spam_email: false
+  bounced_email: false
+  emails_delivered: 1
+  times_emails_opened: 1
+  times_emails_clicked: 1
+  last_contacted_at: 2012-03-09 12:21:57

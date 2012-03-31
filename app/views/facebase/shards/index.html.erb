@@ -1,0 +1,46 @@
+<h1>Listing shards</h1>
+
+<table>
+  <tr>
+    <th>Adapter</th>
+    <th>Host</th>
+    <th>Socket</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Database</th>
+    <th>Pool</th>
+    <th>Encoding</th>
+    <th>Reconnect</th>
+    <th>Principle Model</th>
+    <th>Auto Increment Start</th>
+    <th>Auto Increment Range</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shards.each do |shard| %>
+  <tr>
+    <td><%= shard.adapter %></td>
+    <td><%= shard.host %></td>
+    <td><%= shard.socket %></td>
+    <td><%= shard.username %></td>
+    <td><%= shard.password %></td>
+    <td><%= shard.database %></td>
+    <td><%= shard.pool %></td>
+    <td><%= shard.encoding %></td>
+    <td><%= shard.reconnect %></td>
+    <td><%= shard.principle_model %></td>
+    <td><%= shard.auto_increment_start %></td>
+    <td><%= shard.auto_increment_range %></td>
+
+    <td><%= link_to 'Show', shard %></td>
+    <td><%= link_to 'Edit', edit_shard_path(shard) %></td>
+    <td><%= link_to 'Destroy', shard, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shard', new_shard_path %>
