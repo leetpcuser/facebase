@@ -95,7 +95,6 @@ module Facebase
     def update
       @component = Component.find(params[:id])
 
-
       #respond_to do |format|
       #  if @component.update_attributes(params[:component])
       #    format.html { redirect_to @component, notice: 'Component was successfully updated.' }
