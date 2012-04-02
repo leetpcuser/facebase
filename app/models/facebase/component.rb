@@ -16,15 +16,14 @@ module Facebase
           :reply_to => "reply_to@someemail.com",
           :subject => "test_subject",
           :composite_id => "testCompositeId",
-          :text_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "text", true) ,
-          :html_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "html", true),
+          :text_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "text.erb", true) ,
+          :html_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "html.erb", true),
           :email_service_provider => Facebase::EmailTemplate::MockEmailServiceProvider.new
         }
       )
 
       template_value_sniffer.template_keys
     end
-
 
   end
 end

@@ -76,17 +76,16 @@
         url:"<%= preview_component_path(@component) %>",
         type:"POST",
         data:dataArray,
-        success:function () {
-          console.log("success")
+        success:function (result) {
+          document.getElementById("preview-frame").contentWindow.document.write(result);
+//          console.log(result);
         },
         error:function () {
-          console.log("error")
+          console.log("error");
         }
       });
       return false;
     });
-
-    //    document.getElementById("preview-frame").contentWindow.document.write(editor.getSession().getValue())
   });
 
 </script>

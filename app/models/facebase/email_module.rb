@@ -143,11 +143,11 @@ module Facebase
 
     # Great for debugging emails
     def parsed_html_content
-      return Facebase::CoreMailer.template(self).html_part.body.to_s
+      return Facebase::CoreMailer.template_from_email(self).html_part.body.to_s
     end
 
     def parsed_text_content
-      return Facebase::CoreMailer.template(self).text_part.body.to_s
+      return Facebase::CoreMailer.template_from_email(self).text_part.body.to_s
     end
 
     def html_erb(force_refresh=false)

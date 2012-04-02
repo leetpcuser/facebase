@@ -53,26 +53,25 @@ module Facebase
 
 
     def preview
-      @component = Component.find(params[:id])
+      template_values = params[:template_values]
+      template_content = params[:template_content]
 
-      Facebase::CoreMailer.template(
+      email = Facebase::CoreMailer.template(
         {
           :headers => {},
-          :template_values => template_value_sniffer,
+          :template_values => template_values,
           :to => "to@someemail.com",
           :from => "from@someemail.com",
           :reply_to => "reply_to@someemail.com",
           :subject => "test_subject",
           :composite_id => "testCompositeId",
-          :text_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "text", true) ,
-          :html_erb => Facebase::Email.load_template(self.campaign.name, self.stream.name, self.name, "html", true),
+          :text_erb => "",
+          :html_erb => template_content,
           :email_service_provider => Facebase::EmailTemplate::MockEmailServiceProvider.new
         }
       )
 
-      email = Facebase::Email.new_sniffer_mock(@component.campaign.name, @component.stream.name, @component.name)
-      Facebase::CoreMailer.template(email, true)
-      #render :text =>
+      render :text => email.html_part.body.to_s
     end
 
     # POST /components
