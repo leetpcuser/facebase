@@ -5,7 +5,7 @@ module Facebase
     desc "Generator creates the facebase initializer"
 
     def create_config_files
-      copy_file "facebase.rb", "config/initializers/fasebase.rb"
+      copy_file "facebase.rb", "config/initializers/facebase.rb"
     end
 
   end
