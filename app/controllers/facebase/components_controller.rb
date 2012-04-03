@@ -44,7 +44,7 @@ module Facebase
         @component.campaign.name,
         @component.stream.name,
         @component.name,
-        "html.erb",
+        @component.suffix,
         true
       )
 
