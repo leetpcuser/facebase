@@ -93,7 +93,7 @@ module Facebase
       begin
         # Protect against poor sending habits
         return if ((self.sent || self.failed) && !force)
-        Facebase::CoreMailer.template(self).deliver
+        Facebase::CoreMailer.template_from_email(self).deliver
         self.update_attribute(:sent, true)
         self.contact.update_attribute(:last_contacted_at, Time.now)
       rescue => e

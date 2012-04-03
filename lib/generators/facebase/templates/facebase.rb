@@ -26,6 +26,10 @@ Facebase.configure do |config|
   # valid mixpanel token is provided
   # config.mixpanel_token = "optional mixpanel token for tracking"
 
+  # litmus_static_email: (optional)
+  # Provides email testing via litmus. If provided we can send test emails
+  # to litmus for cross browser testing.
+  config.litmus_static_email = "something@litmus.com"
 
   # redis_lock_uri: (Required)
   # Redis is used to provide fast locks across our principle sharded model

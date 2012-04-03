@@ -46,6 +46,8 @@ module Facebase
     :username, :password,
     # Mixpanel
     :mixpanel_token,
+    # Litmus
+    :litmus_static_email,
     # Redis lock store
     :redis_lock_uri,
     # Redis resque store

@@ -5,21 +5,31 @@
 
 <h1>Editing <%= "#{@component.campaign.name} => #{@component.stream.name} => #{@component.name}" %></h1>
 
-<button id="preview-button">Preview</button>
-<button id="test">Send Test</button>
-<button id="litmus">Litmus</button>
 
-<br>
 <br>
 
 <form id="preview-form" action="#">
   <table>
-  <% @template_keys.each do |key| %>
     <tr>
-      <th><label><%= key.to_s %></label></th>
-      <td><input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>" /></td>
+      <th><label>To (optional email address)</label></th>
+      <td>
+        <input name="to" type="text">
+      </td>
     </tr>
-  <% end %>
+    <tr>
+      <th><label>Subject Line</label></th>
+      <td>
+        <input name="subject_line" type="text">
+      </td>
+    </tr>
+    <% @template_keys.each do |key| %>
+      <tr>
+        <th><label><%= key.to_s %></label></th>
+        <td>
+          <input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>"/>
+        </td>
+      </tr>
+    <% end %>
   </table>
 
   <div id="editor-wrapper">
@@ -30,8 +40,18 @@
 
   <table>
     <tr>
-      <td><input id="template-content" name="template_content" type="hidden" /></td>
-      <td><input type="submit" value="Submit" /></td>
+      <td>
+        <input id="preview-button" type="submit" value="Preview"/>
+      </td>
+      <td>
+        <input id="litmus-button" type="submit" value="Litmus Preview"/>
+      </td>
+      <td>
+        <input id="direct-button" type="submit" value="Email to:"/>
+      </td>
+      <td>
+        <input name="email_address" type="text" value=""/>
+      </td>
     </tr>
   </table>
 </form>
@@ -45,28 +65,35 @@
 
   $(function () {
 
+    //Boot Ace
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     var JavaScriptMode = require("ace/mode/html").Mode;
     editor.getSession().setMode(new JavaScriptMode());
 
-    // Submit the preview data to the server
-    $("#preview-form").submit(function (response) {
 
-      // Build the data array
-      var dataArray = $("#preview-form").serializeArray();
-      dataArray.push({
-        name:"template_content",
-        value:editor.getSession().getValue()
-      });
+    // Don't allow the form to submit regularly (via 'enter' or other silliness)
+    $("#preview-form").submit(function (e) {
+      e.preventDefault();
+      return false;
+    });
+
+
+    // Preview button setup
+    $("#preview-button").click(function (e) {
+      e.preventDefault();
+
+      var dataArray = buildFormDataArray();
 
       $.ajax({
         url:"<%= preview_component_path(@component) %>",
         type:"POST",
         data:dataArray,
         success:function (result) {
-          document.getElementById("preview-frame").contentWindow.document.write(result);
-//          console.log(result);
+          var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
+          previewDocucment.open();
+          previewDocucment.write(result);
+          previewDocucment.close();
         },
         error:function () {
           console.log("error");
@@ -74,6 +101,59 @@
       });
       return false;
     });
+
+    // litmus checking setup
+    $("#litmus-button").click(function (e) {
+      e.preventDefault();
+
+      var dataArray = buildFormDataArray();
+
+      $.ajax({
+        url:"<%= litmus_preview_component_path(@component) %>",
+        type:"POST",
+        data:dataArray,
+        success:function (result) {
+          alert("Litmus is now processing. Go check Litmus.com")
+        },
+        error:function () {
+          console.log("error");
+        }
+      });
+      return false;
+    });
+
+
+    // direct email setup
+    $("#direct-button").click(function (e) {
+      e.preventDefault();
+
+      var dataArray = buildFormDataArray();
+
+      $.ajax({
+        url:"<%= direct_preview_component_path(@component) %>",
+        type:"POST",
+        data:dataArray,
+        success:function (result) {
+          alert("Email sent. Check your email address")
+        },
+        error:function () {
+          console.log("error");
+        }
+      });
+      return false;
+    });
+
+
+    //Takes our form, appends the editor content, and serializes a array
+    function buildFormDataArray() {
+      var dataArray = $("#preview-form").serializeArray();
+      dataArray.push({
+        name:"template_content",
+        value:editor.getSession().getValue()
+      });
+      return dataArray;
+    }
+
   });
 
 </script>

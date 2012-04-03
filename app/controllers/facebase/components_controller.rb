@@ -55,6 +55,7 @@ module Facebase
     def preview
       template_values = params[:template_values]
       template_content = params[:template_content]
+      subject_line = params[:subject_line]
 
       email = Facebase::CoreMailer.template(
         {
@@ -63,7 +64,7 @@ module Facebase
           :to => "to@someemail.com",
           :from => "from@someemail.com",
           :reply_to => "reply_to@someemail.com",
-          :subject => "test_subject",
+          :subject => subject_line,
           :composite_id => "testCompositeId",
           :text_erb => "",
           :html_erb => template_content,
@@ -73,6 +74,65 @@ module Facebase
 
       render :text => email.html_part.body.to_s
     end
+
+
+    def litmus_preview
+      esp = Facebase::EmailServiceProvider.first
+      raise "No Email Service providers installed" if esp.blank?
+      raise "Litmus static email not specified" if Facebase.litmus_static_email.blank?
+
+      template_values = params[:template_values]
+      template_content = params[:template_content]
+      subject_line = params[:subject_line]
+
+      email = Facebase::CoreMailer.template(
+        {
+          :headers => {},
+          :template_values => template_values,
+          :to => Facebase.litmus_static_email,
+          :from => "from@facebase.com",
+          :reply_to => "reply_to@facebase.com",
+          :subject => subject_line,
+          :composite_id => "testCompositeId",
+          :text_erb => "",
+          :html_erb => template_content,
+          :email_service_provider => esp
+        }
+      )
+
+      email.deliver
+      head 200
+    end
+
+    def direct_preview
+      esp = Facebase::EmailServiceProvider.first
+      raise "No Email Service providers installed" if esp.blank?
+
+      template_values = params[:template_values]
+      template_content = params[:template_content]
+      subject_line = params[:subject_line]
+      email_address = params[:email_address]
+
+
+      email = Facebase::CoreMailer.template(
+        {
+          :headers => {},
+          :template_values => template_values,
+          :to => email_address,
+          :from => "from@facebase.com",
+          :reply_to => "reply_to@facebase.com",
+          :subject => subject_line,
+          :composite_id => "testCompositeId",
+          :text_erb => "",
+          :html_erb => template_content,
+          :email_service_provider => esp
+        }
+      )
+
+      email.deliver
+      head 200
+    end
+
 
     # POST /components
     # POST /components.json
@@ -117,5 +177,7 @@ module Facebase
         format.json { head :no_content }
       end
     end
+
+
   end
 end

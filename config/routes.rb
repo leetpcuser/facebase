@@ -4,6 +4,8 @@ Facebase::Engine.routes.draw do
 
   resources :components do
     post 'preview', :on => :member
+    post 'litmus_preview', :on => :member
+    post 'direct_preview', :on => :member
   end
 
   #  -------------------------------------------- Admin functionality
