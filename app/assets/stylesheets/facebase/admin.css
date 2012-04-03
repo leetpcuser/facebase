@@ -174,3 +174,79 @@ body {
     margin: 0 20px;
     padding: 15px 0 15px 25px;
 }
+
+table th {
+    line-height: 28px;
+    min-width: 130px;
+    padding: 0 0 10px;
+    text-align: left;
+    width: 130px;
+}
+
+table td {
+    padding: 0 0 10px 0;
+}
+
+table input[type="text"] {
+    background: url(/assets/facebase/form/input.gif) no-repeat;
+    border: none;
+    color: #393939;
+    height: 25px;
+    padding: 6px 6px 0 6px;
+    width: 186px;
+}
+
+button,
+#edit_links a {
+    background: #7d7d7d;
+    border: 1px solid #7d7d7d;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#edit_links a {
+    text-decoration: none;
+}
+
+table input[type="submit"] {
+    background: #94b52c;
+    border: 1px solid #94b52c;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#editor-wrapper {
+    height: 400px;
+    margin-bottom: 15px;
+    position: relative;
+    width: 95%;
+}
+
+#editor {
+    height: 400px;
+    position: absolute;
+    width: 100%;
+}
+
+#preview-frame {
+    height: 800px;
+    width: 1024px;
+}
+
+#edit_links {
+    margin-bottom: 15px;
+}
+
+iframe {
+    border: 1px solid #acacac;
+}

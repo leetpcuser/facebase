@@ -3,32 +3,7 @@
 <%= javascript_include_tag "facebase/ace/mode-html.js" %>
 <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
 
-<style type="text/css">
-  #editor-wrapper {
-    position: relative;
-    width: 95%;
-    height: 400px;
-  }
-
-  #editor {
-    position: absolute;
-    width: 100%;
-    height: 400px;
-  }
-
-  #preview-frame {
-    width: 1024px;
-    height: 800px;
-  }
-</style>
-
 <h1>Editing <%= "#{@component.campaign.name} => #{@component.stream.name} => #{@component.name}" %></h1>
-
-<div id="editor-wrapper">
-  <div id="editor">
-    <%= @template %>
-  </div>
-</div>
 
 <button id="preview-button">Preview</button>
 <button id="test">Send Test</button>
@@ -38,21 +13,33 @@
 <br>
 
 <form id="preview-form" action="#">
+  <table>
   <% @template_keys.each do |key| %>
-    <label><%= key.to_s %></label>
-    <input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>">
-    <br><br>
+    <tr>
+      <th><label><%= key.to_s %></label></th>
+      <td><input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>" /></td>
+    </tr>
   <% end %>
-  <input id="template-content" name="template_content" type="hidden">
-  <input type="submit">
+  </table>
+
+  <div id="editor-wrapper">
+    <div id="editor">
+      <%= @template %>
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <td><input id="template-content" name="template_content" type="hidden" /></td>
+      <td><input type="submit" value="Submit" /></td>
+    </tr>
+  </table>
 </form>
 
-<br>
-<br>
-<%= link_to 'Show', @component %> |
-<%= link_to 'Back', components_path %>
-<br>
-
+<div id="edit_links">
+  <%= link_to 'Show', @component %>
+  <%= link_to 'Back', components_path %>
+</div>
 
 <script type="text/javascript">
 
