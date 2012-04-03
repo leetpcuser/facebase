@@ -42,9 +42,13 @@ module Facebase
     # Class methods go here
     module ClassMethods
 
-      # Loads a template file from s3 using
+      # Loads a template file from s3, on error returns the error message
       def load_template(campaign, stream, component, suffix="html.erb", force_refresh=false)
-        raise "No aws_campaign_bucket_set" if Facebase.aws_campaign_bucket.strip.blank?
+        if Facebase.aws_campaign_bucket.strip.blank?
+          message = "No aws_campaign_bucket_set"
+          pp message
+          return message
+        end
 
         # Check the cache using our convention
         path = self.computed_s3_path(campaign, stream, component, suffix)
@@ -57,7 +61,13 @@ module Facebase
         campaign_bucket = s3.buckets[Facebase.aws_campaign_bucket]
         campaign_bucket = buckets.create(Facebase.aws_campaign_bucket) unless campaign_bucket.exists?
         object = campaign_bucket.objects[path]
-        raise "no object found at path:  #{path}" unless object.exists?
+
+        # Return the error message
+        unless object.exists?
+          message = "no object found at path:  #{path}"
+          pp message
+          return message
+        end
 
         # Read and return
         @template_cache[path] = (object.read || "")

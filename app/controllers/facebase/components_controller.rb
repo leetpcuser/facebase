@@ -155,15 +155,19 @@ module Facebase
     def update
       @component = Component.find(params[:id])
 
-      #respond_to do |format|
-      #  if @component.update_attributes(params[:component])
-      #    format.html { redirect_to @component, notice: 'Component was successfully updated.' }
-      #    format.json { head :no_content }
-      #  else
-      #    format.html { render action: "edit" }
-      #    format.json { render json: @component.errors, status: :unprocessable_entity }
-      #  end
-      #end
+      respond_to do |format|
+        if @component.update_attributes(params[:component])
+
+          # Save to s3, we have S3 should have turned on to prevent dataloss
+          @component.save_template_content(params[:template_content])
+
+          format.html { redirect_to @component, notice: 'Component was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @component.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
     # DELETE /components/1

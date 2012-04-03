@@ -5,17 +5,25 @@
 
 <h1>Editing <%= "#{@component.campaign.name} => #{@component.stream.name} => #{@component.name}" %></h1>
 
-
 <br>
 
 <form id="preview-form" action="#">
   <table>
     <tr>
-      <th><label>To (optional email address)</label></th>
+      <th><label>Component Name</label></th>
       <td>
-        <input name="to" type="text">
+        <input type="text" name="component[name]" value="<%= @component.name %>">
       </td>
     </tr>
+    <tr>
+      <th><label>Suffix</label></th>
+      <td>
+        <input type="text" name="component[suffix]" value="<%= @component.suffix %>">
+      </td>
+    </tr>
+  </table>
+
+  <table>
     <tr>
       <th><label>Subject Line</label></th>
       <td>
@@ -32,10 +40,12 @@
     <% end %>
   </table>
 
-  <div id="editor-wrapper">
-    <div id="editor">
-      <%= @template %>
+  <div id="editor-complete">
+    <div id="editor-wrapper">
+      <!-- IMPORTANT: There can be NO spaces between the template and editor div -->
+      <div id="editor"><%= @template %></div>
     </div>
+    <button id="save-template">Save</button>
   </div>
 
   <table>
@@ -56,10 +66,6 @@
   </table>
 </form>
 
-<div id="edit_links">
-  <%= link_to 'Show', @component %>
-  <%= link_to 'Back', components_path %>
-</div>
 
 <script type="text/javascript">
 
@@ -144,6 +150,23 @@
     });
 
 
+    //Save support for the component including editor updates
+    $("#save-template").click(function () {
+      var dataArray = buildFormDataArray();
+      $.ajax({
+        url:"<%= component_path(@component, :format => :json) %>",
+        type:"PUT",
+        data:dataArray,
+        success:function (result) {
+          alert("Email saved.");
+        },
+        error:function () {
+          alert("Error saving email.");
+        }
+      });
+    });
+
+
     //Takes our form, appends the editor content, and serializes a array
     function buildFormDataArray() {
       var dataArray = $("#preview-form").serializeArray();
@@ -158,9 +181,12 @@
 
 </script>
 
-
-
 <iframe id="preview-frame"></iframe>
+
+<div id="edit_links">
+  <%= link_to 'Show', @component %>
+  <%= link_to 'Back', components_path %>
+</div>
 
 
 
