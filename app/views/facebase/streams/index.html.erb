@@ -1,16 +1,18 @@
-<h1>Listing streams</h1>
+<h1>Listing Streams</h1>
 
-<table>
+<table class="list_view">
   <tr>
-    <th>Name</th>
+    <th class="first">Name</th>
     <th>Campaign</th>
     <th></th>
     <th></th>
     <th></th>
+    <th class="last"></th>
   </tr>
 
-<% @streams.each do |stream| %>
-  <tr>
+<% @streams.each_with_index do |stream, i| %>
+<% row_class = i%2 == 0 ? "even" : "odd" %>
+  <tr class="<%= row_class %>">
     <td><%= stream.name %></td>
     <td><%= stream.campaign_id %></td>
     <td><%= link_to 'Show', stream %></td>

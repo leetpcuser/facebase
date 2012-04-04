@@ -1,15 +1,17 @@
-<h1>Listing campaigns</h1>
+<h1>Listing Campaigns</h1>
 
-<table>
+<table class="list_view">
   <tr>
-    <th>Name</th>
+    <th class="first">Name</th>
     <th></th>
     <th></th>
     <th></th>
+    <th class="last"></th>
   </tr>
 
-<% @campaigns.each do |campaign| %>
-  <tr>
+<% @campaigns.each_with_index do |campaign, i| %>
+<% row_class = i%2 == 0 ? "even" : "odd" %>
+  <tr class="<%= row_class %>">
     <td><%= campaign.name %></td>
     <td><%= link_to 'Show', campaign %></td>
     <td><%= link_to 'Streams', streams_path(:campaign_id => campaign.id) %></td>

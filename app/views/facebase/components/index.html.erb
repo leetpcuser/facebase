@@ -1,23 +1,19 @@
-<h1>Listing components</h1>
+<h1>Listing Components</h1>
 
-<table>
+<table class="list_view">
   <tr>
-    <th>Name</th>
-    <th>Suffix</th>
-    <th>Uri</th>
-    <th>Editable</th>
+    <th class="first">Name</th>
+    <th>Suffix / Uri / Editable</th>
     <th>Stream</th>
     <th></th>
     <th></th>
-    <th></th>
+    <th class="last"></th>
   </tr>
 
 <% @components.each do |component| %>
   <tr>
     <td><%= component.name %></td>
-    <td><%= component.suffix %></td>
-    <td><%= component.uri %></td>
-    <td><%= component.editable %></td>
+    <td><%= component.suffix %> / <%= component.uri %> / <%= component.editable %></td>
     <td><%= component.stream_id %></td>
     <td><%= link_to 'Show', component %></td>
     <td><%= link_to 'Edit', edit_component_path(component) %></td>

@@ -176,7 +176,7 @@ body {
 }
 
 table th {
-    line-height: 28px;
+    line-height: 16px;
     min-width: 130px;
     padding: 0 0 10px;
     text-align: left;
@@ -187,7 +187,8 @@ table td {
     padding: 0 0 10px 0;
 }
 
-table input[type="text"] {
+table input[type="text"],
+table input[type="number"]{
     background: url(/assets/facebase/form/input.gif) no-repeat;
     border: none;
     color: #393939;
@@ -249,4 +250,67 @@ table input[type="submit"] {
 
 iframe {
     border: 1px solid #acacac;
+}
+
+form {
+    margin: 0px;
+    padding: 0px;
+}
+
+table.list_view {
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+table.list_view th {
+    background-color: #3f3f3f;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3f3f3f), to(#676767));
+    background: -webkit-linear-gradient(top, #3f3f3f, #676767);
+    background: -moz-linear-gradient(top, #3f3f3f, #676767);
+    background: -ms-linear-gradient(top, #3f3f3f, #676767);
+    background: -o-linear-gradient(top, #3f3f3f, #676767);
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 13px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 14px;
+    padding: 0 10px;
+}
+
+table.list_view th.first {
+    border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+}
+
+table.list_view th.last {
+    border-radius: 0 5px  0 0;
+    -moz-border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+}
+
+table.list_view tr td {
+    border: 1px solid #D2D2D2;
+    padding: 10px;
+}
+
+table.list_view tr.odd {
+    background: #ECECEC;
+}
+
+table.list_view a {
+    color: #393939;
+    font-weight: normal;
+}
+
+a {
+    color: #92B22C;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

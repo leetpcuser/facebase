@@ -11,47 +11,51 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :port %><br />
-    <%= f.number_field :port %>
-  </div>
-  <div class="field">
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
-  </div>
-  <div class="field">
-    <%= f.label :user_name %><br />
-    <%= f.text_field :user_name %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :authentication %><br />
-    <%= f.text_field :authentication %>
-  </div>
-  <div class="field">
-    <%= f.label :enable_starttls_auto %><br />
-    <%= f.check_box :enable_starttls_auto %>
-  </div>
-  <div class="field">
-    <%= f.label :enable_sendgrid_tracking %><br />
-    <%= f.check_box :enable_sendgrid_tracking %>
-  </div>
-  <div class="field">
-    <%= f.label :enable_auto_google_analytics %><br />
-    <%= f.check_box :enable_auto_google_analytics %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <table>
+    <tr>
+      <th><%= f.label :name %></th>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :address %></th>
+      <td><%= f.text_field :address %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :port %></th>
+      <td><%= f.number_field :port %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :domain %></th>
+      <td><%= f.text_field :domain %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :user_name %></th>
+      <td><%= f.text_field :user_name %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :password %></th>
+      <td><%= f.text_field :password %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :authentication %></th>
+      <td><%= f.text_field :authentication %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :enable_starttls_auto %></th>
+      <td><%= f.check_box :enable_starttls_auto %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :enable_sendgrid_tracking %></th>
+      <td><%= f.check_box :enable_sendgrid_tracking %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :enable_auto_google_analytics %></th>
+      <td><%= f.check_box :enable_auto_google_analytics %></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><%= f.submit %></td>
+    </tr>
+  </table>
+
 <% end %>
