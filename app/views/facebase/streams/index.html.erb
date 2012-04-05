@@ -5,8 +5,6 @@
     <th class="first">Name</th>
     <th>Campaign</th>
     <th></th>
-    <th></th>
-    <th></th>
     <th class="last"></th>
   </tr>
 
@@ -15,10 +13,10 @@
   <tr class="<%= row_class %>">
     <td><%= stream.name %></td>
     <td><%= stream.campaign_id %></td>
-    <td><%= link_to 'Show', stream %></td>
     <td><%= link_to 'Components', components_path(:stream_id => stream.id) %></td>
-    <td><%= link_to 'Edit', edit_stream_path(stream) %></td>
-    <td><%= link_to 'Destroy', stream, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', stream %> |
+      <%= link_to 'Edit', edit_stream_path(stream) %> |
+      <%= link_to 'Destroy', stream, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

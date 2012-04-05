@@ -3,25 +3,26 @@
 <table class="list_view">
   <tr>
     <th class="first">Name</th>
-    <th>Suffix / Uri / Editable</th>
+    <th>Suffix </th>
+    <th>Uri</th>
     <th>Stream</th>
-    <th></th>
-    <th></th>
     <th class="last"></th>
   </tr>
 
-<% @components.each do |component| %>
-  <tr>
-    <td><%= component.name %></td>
-    <td><%= component.suffix %> / <%= component.uri %> / <%= component.editable %></td>
-    <td><%= component.stream_id %></td>
-    <td><%= link_to 'Show', component %></td>
-    <td><%= link_to 'Edit', edit_component_path(component) %></td>
-    <td><%= link_to 'Destroy', component, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @components.each do |component| %>
+    <tr>
+      <td><%= component.name %></td>
+      <td><%= component.suffix %></td>
+      <td><%= component.uri %> </td>
+      <td><%= component.stream.name %></td>
+      <td><%= link_to 'Show', component %> |
+        <%= component.editable ? (link_to 'Edit', edit_component_path(component)) + " | " : "" %>
+        <%= link_to 'Destroy', component, confirm: 'Are you sure?', method: :delete %>
+      </td>
+    </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
 <%= link_to 'New Component', new_component_path(:stream_id => @stream_id) %>

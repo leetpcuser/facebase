@@ -4,8 +4,6 @@
   <tr>
     <th class="first">Name</th>
     <th></th>
-    <th></th>
-    <th></th>
     <th class="last"></th>
   </tr>
 
@@ -13,10 +11,10 @@
 <% row_class = i%2 == 0 ? "even" : "odd" %>
   <tr class="<%= row_class %>">
     <td><%= campaign.name %></td>
-    <td><%= link_to 'Show', campaign %></td>
     <td><%= link_to 'Streams', streams_path(:campaign_id => campaign.id) %></td>
-    <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
-    <td><%= link_to 'Destroy', campaign, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', campaign %> |
+      <%= link_to 'Edit', edit_campaign_path(campaign) %> |
+      <%= link_to 'Destroy', campaign, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
