@@ -1,10 +1,13 @@
 module Facebase
   class StreamsController < ApplicationController
+    before_filter :authenticate_admin!
+
     # GET /streams
     # GET /streams.json
     def index
-      if params[:campaign_id]
-        @streams = Stream.where(:campaign_id => params[:campaign_id]).all
+      if session[:campaign_id]
+        @campaign_id = session[:campaign_id]
+        @streams = Stream.where(:campaign_id => @campaign_id).all
       else
         @streams = Stream.all
       end

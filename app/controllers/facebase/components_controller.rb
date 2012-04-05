@@ -1,10 +1,13 @@
 module Facebase
   class ComponentsController < ApplicationController
+    before_filter :authenticate_admin!
+
     # GET /components
     # GET /components.json
     def index
-      if params[:stream_id]
-        @components = Component.where(:stream_id => params[:stream_id]).all
+      if session[:stream_id]
+        @stream_id = session[:stream_id]
+        @components = Component.where(:stream_id => @stream_id).all
       else
         @components = Component.all
       end
