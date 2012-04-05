@@ -336,3 +336,7 @@ a:hover {
 .top {
     vertical-align: top;
 }
+
+.left_space {
+    padding-left: 10px;
+}

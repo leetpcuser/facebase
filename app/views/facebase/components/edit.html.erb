@@ -14,29 +14,36 @@
       <td>
         <input type="text" name="component[name]" value="<%= @component.name %>">
       </td>
-    </tr>
-    <tr>
-      <th><label>Suffix</label></th>
+      <th class="left_space"><label>Suffix</label></th>
       <td>
         <input type="text" name="component[suffix]" value="<%= @component.suffix %>">
       </td>
     </tr>
-  </table>
-
-  <table>
     <tr>
       <th><label>Subject Line</label></th>
       <td>
         <input name="subject_line" type="text">
       </td>
+
+    <% @template_keys.each_with_index do |key, i| %>
+
+      <% if i%2 != 0  %>
+    <tr>
+      <% end %>
+
+      <th <% if i%2 == 0 %>class="left_space"<% end %>><label><%= key.to_s %></label></th>
+      <td>
+        <input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>"/>
+      </td>
+
+      <% if i%2 == 0 %>
     </tr>
-    <% @template_keys.each do |key| %>
-      <tr>
-        <th><label><%= key.to_s %></label></th>
-        <td>
-          <input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>"/>
-        </td>
-      </tr>
+      <% end %>
+       
+      <% if i == 0 %>
+    </tr>
+      <% end %>
+        
     <% end %>
   </table>
 
