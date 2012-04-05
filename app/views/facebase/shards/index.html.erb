@@ -1,42 +1,28 @@
-<h1>Listing shards</h1>
+<h1>Listing Shards</h1>
 
-<table>
+<table class="list_view">
   <tr>
-    <th>Adapter</th>
-    <th>Host</th>
-    <th>Socket</th>
-    <th>Username</th>
-    <th>Password</th>
-    <th>Database</th>
-    <th>Pool</th>
-    <th>Encoding</th>
-    <th>Reconnect</th>
+    <th class="first">Adapter</th>
+    <th>Host / Socket</th>
+    <th>Username / Password / Database</th>
+    <th>Pool / Encoding / Reconnect</th>
     <th>Principle Model</th>
     <th>Auto Increment Start</th>
     <th>Auto Increment Range</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="last"></th>
   </tr>
 
-<% @shards.each do |shard| %>
-  <tr>
+<% @shards.each_with_index do |shard, i| %>
+<% row_class = i%2 == 0 ? "even" : "odd" %>
+  <tr class="<%= row_class %>">
     <td><%= shard.adapter %></td>
-    <td><%= shard.host %></td>
-    <td><%= shard.socket %></td>
-    <td><%= shard.username %></td>
-    <td><%= shard.password %></td>
-    <td><%= shard.database %></td>
-    <td><%= shard.pool %></td>
-    <td><%= shard.encoding %></td>
-    <td><%= shard.reconnect %></td>
+    <td><%= shard.host %> / <%= shard.socket %></td>
+    <td><%= shard.username %> / <%= shard.password %> / <%= shard.database %></td>
+    <td><%= shard.pool %> / <%= shard.encoding %> / <%= shard.reconnect %></td>
     <td><%= shard.principle_model %></td>
     <td><%= shard.auto_increment_start %></td>
     <td><%= shard.auto_increment_range %></td>
-
-    <td><%= link_to 'Show', shard %></td>
-    <td><%= link_to 'Edit', edit_shard_path(shard) %></td>
-    <td><%= link_to 'Destroy', shard, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', shard %> / <%= link_to 'Edit', edit_shard_path(shard) %> / <%= link_to 'Destroy', shard, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

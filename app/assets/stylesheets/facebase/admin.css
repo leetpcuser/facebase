@@ -2,8 +2,8 @@ body {
     background: #fff;
     color: #393939;
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #header {
@@ -35,7 +35,7 @@ body {
 
 #nav {
     float: left;
-    font-family: Tahoma;
+    font-family: Tahoma, Geneva, sans-serif;
     font-size: 13px;
     height: 38px;
     min-width: 600px;
@@ -52,16 +52,16 @@ body {
     display: table-cell;
     float: left;
     list-style: none;
-    margin: 0 0px 0 0;
-    padding: 0px;
+    margin: 0 0 0 0;
+    padding: 0;
     white-space: nowrap;
 }
 
 #nav ul li {
     float: left;
     height: auto;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #nav ul li a {
@@ -96,8 +96,8 @@ body {
 #nav ul :hover .subnav_wrapper {
     background: url(/assets/facebase/nav/subnav.gif);
     display: block;
-    left: 0px;
-    padding: 0px;
+    left: 0;
+    padding: 0;
     position: absolute;
     text-align: left;
     top: 37px;
@@ -150,12 +150,12 @@ body {
 
 #content h1 {
     color: #4B4B4B;
-    font-family: Tahoma;
+    font-family: Tahoma, Geneva, sans-serif;
     font-size: 22px;
     font-weight: normal;
     line-height: 24px;
     margin: 0 0 15px 0;
-    padding: 0px;
+    padding: 0;
 }
 
 #footer {
@@ -253,8 +253,8 @@ iframe {
 }
 
 form {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 table.list_view {
@@ -268,13 +268,13 @@ table.list_view th {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3f3f3f), to(#676767));
     background: -webkit-linear-gradient(top, #3f3f3f, #676767);
     background: -moz-linear-gradient(top, #3f3f3f, #676767);
-    background: -ms-linear-gradient(top, #3f3f3f, #676767);
+    background: -ms-linear-gradient(#3f3f3f, #676767);
     background: -o-linear-gradient(top, #3f3f3f, #676767);
     color: #fff;
-    font-family: Tahoma;
+    font-family: Tahoma, Geneva, sans-serif;
     font-size: 13px;
     font-weight: bold;
-    height: 50px;
+    height: 24px;
     line-height: 14px;
     padding: 0 10px;
 }
@@ -313,4 +313,26 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+#preview_options td {
+    float: left;
+    padding: 5px 5px 5px 0;
+}
+
+#preview_options td input[type="submit"] {
+    margin-top: 2px;
+}
+
+#preview_options .loading {
+    padding-top: 8px;
+}
+
+#preview_options .loading img {
+    float: left;
+    margin: 1px 4px 0 0;
+}
+
+.top {
+    vertical-align: top;
 }

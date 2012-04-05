@@ -48,9 +48,9 @@
     <button id="save-template">Save</button>
   </div>
 
-  <table>
+  <table id="preview_options">
     <tr>
-      <td>
+      <td valign="middle">
         <input id="preview-button" type="submit" value="Preview"/>
       </td>
       <td>
@@ -60,7 +60,7 @@
         <input id="direct-button" type="submit" value="Email to:"/>
       </td>
       <td>
-        <input name="email_address" type="text" value=""/>
+        <input name="email_address" id="email_address" type="text" value="" />
       </td>
     </tr>
   </table>
@@ -112,6 +112,7 @@
     $("#litmus-button").click(function (e) {
       e.preventDefault();
 
+      $("#litmus-button").parent().html("<div id='litmus_loading' class='loading'><img src='/assets/facebase/loading.gif' alt='loading' /> Processing Litmus Test</div>");
       var dataArray = buildFormDataArray();
 
       $.ajax({
@@ -119,10 +120,10 @@
         type:"POST",
         data:dataArray,
         success:function (result) {
-          alert("Litmus is now processing. Go check Litmus.com")
+          $("#litmus_loading").html("Litmus test submitted. Check Litmus.com.");
         },
         error:function () {
-          console.log("error");
+            $("#litmus_loading").html("Litmus test did not submit. There was an error.")
         }
       });
       return false;
@@ -135,15 +136,18 @@
 
       var dataArray = buildFormDataArray();
 
+      $("#direct-button").parent().html("<div id='email_loading' class='loading'><img src='/assets/facebase/loading.gif' alt='loading' /> Processing Email</div>");
+      $("#email_address").parent().html("");
+
       $.ajax({
         url:"<%= direct_preview_component_path(@component) %>",
         type:"POST",
         data:dataArray,
         success:function (result) {
-          alert("Email sent. Check your email address")
+          $("#email_loading").html("Email sent. Check your email address");
         },
         error:function () {
-          console.log("error");
+          $("#email_loading").html("The email was not sent. There was an error.");
         }
       });
       return false;
