@@ -46,12 +46,25 @@
         
     <% end %>
   </table>
+  
+  <div id="toggle_navigation">
+    <a href="#" id="editor_link" class="selected">Editor</a>
+    <a href="#" id="preview_link">Previewer</a>
+
+    <div id="screen_resolutions">
+      <a href="#" id="800_600" class="selected">800 x 600</a>
+      <a href="#" id="1024_768">1024 x 768</a>
+    </div>
+  </div>
 
   <div id="editor-complete">
     <div id="editor-wrapper">
-      <!-- IMPORTANT: There can be NO spaces between the template and editor div -->
+      <% # IMPORTANT: There can be NO spaces between the template and editor div %>
       <div id="editor"><%= @template %></div>
     </div>
+
+    <div id="preview"><iframe id="preview-frame"></iframe></div>
+
     <button id="save-template">Save</button>
   </div>
 
@@ -73,10 +86,71 @@
   </table>
 </form>
 
-
 <script type="text/javascript">
 
   $(function () {
+    function loadPreview()
+    {
+      var dataArray = buildFormDataArray();
+
+      $.ajax({
+        url:"<%= preview_component_path(@component) %>",
+        type:"POST",
+        data:dataArray,
+        success:function (result) {
+          var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
+          previewDocucment.open();
+          previewDocucment.write(result);
+          previewDocucment.close();
+        },
+        error:function () {
+          console.log("error");
+        }
+      });
+    }
+
+    function updateResolution(currentID)
+    {
+      var sizeVars = $(currentID).attr("id");
+      sizeVars = sizeVars.split("_");
+      var height = sizeVars[1];
+      var width = sizeVars[0];
+
+      var theFrame = $("#preview-frame", parent.document.body);
+      theFrame.height(height);
+      theFrame.width(width);
+
+      $("#preview").css("height: " + height + "px;");
+      $("#screen_resolutions a").removeClass();
+      $(currentID).addClass("selected");
+    }
+
+    $("#screen_resolutions a").click(function() {
+        updateResolution(this);
+
+        return false;
+    });
+
+    $("#preview_link").click(function() {
+        $("#editor_link").removeClass();
+        $("#preview_link").addClass("selected");
+        $("#screen_resolutions").show();
+        $("#editor-wrapper").hide();
+        $("#preview").show();
+
+        loadPreview();
+        return false;
+    });
+
+    $("#editor_link").click(function() {
+        $("#preview_link").removeClass();
+        $("#editor_link").addClass("selected");
+        $("#screen_resolutions").hide();
+        $("#preview").hide();
+        $("#editor-wrapper").show();
+
+        return false;
+    });
 
     //Boot Ace
     editor = ace.edit("editor");
@@ -96,22 +170,13 @@
     $("#preview-button").click(function (e) {
       e.preventDefault();
 
-      var dataArray = buildFormDataArray();
+      $("#editor_link").removeClass();
+      $("#preview_link").addClass("selected");
+      $("#screen_resolutions").show();
+      $("#editor-wrapper").hide();
+      $("#preview").show();
 
-      $.ajax({
-        url:"<%= preview_component_path(@component) %>",
-        type:"POST",
-        data:dataArray,
-        success:function (result) {
-          var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
-          previewDocucment.open();
-          previewDocucment.write(result);
-          previewDocucment.close();
-        },
-        error:function () {
-          console.log("error");
-        }
-      });
+      loadPreview();
       return false;
     });
 
@@ -188,11 +253,75 @@
       return dataArray;
     }
 
+
+    $.ctrl = function(key, callback, args) {
+      var isCtrl = false;
+
+      $(document).keydown(function(e) {
+        if(!args) args=[];
+
+        if(e.ctrlKey) isCtrl = true;
+
+        if(e.keyCode == key.charCodeAt(0) && isCtrl) {
+          callback.apply(this, args);
+          return false;
+        }
+      }).keyup(function(e) {
+        if(e.ctrlKey) isCtrl = false;
+        });
+      };
+
+      $.ctrl('L', function() {
+          $("#preview_link").removeClass();
+          $("#editor_link").addClass("selected");
+          $("#screen_resolutions").hide();
+          $("#preview").hide();
+          $("#editor-wrapper").show();
+      });
+
+      $.ctrl('H', function() {
+          $("#editor_link").removeClass();
+          $("#preview_link").addClass("selected");
+          $("#screen_resolutions").show();
+          $("#editor-wrapper").hide();
+          $("#preview").show();
+
+          var dataArray = buildFormDataArray();
+
+          $.ajax({
+              url:"<%= preview_component_path(@component) %>",
+              type:"POST",
+              data:dataArray,
+              success:function (result) {
+                  var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
+                  previewDocucment.open();
+                  previewDocucment.write(result);
+                  previewDocucment.close();
+              },
+              error:function () {
+                  console.log("error");
+              }
+          });
+      });
+
+      $.ctrl('K', function() {
+        var id = $("#screen_resolutions .selected").attr("id");
+        var next_id = $("a#" + id).next().attr("id");
+
+        if (typeof next_id == "undefined")
+        {
+            next_id = $("#screen_resolutions a:first").attr("id");
+        }
+
+        $("#screen_resolutions a").removeClass();
+        $("#" + next_id).addClass("selected");
+
+        updateResolution("#" + next_id);
+        return false;
+      });
   });
 
 </script>
-
-<iframe id="preview-frame"></iframe>
 
 <div id="edit_links">
   <%= link_to 'Show', @component %>
