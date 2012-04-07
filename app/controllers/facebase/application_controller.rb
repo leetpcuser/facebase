@@ -7,7 +7,7 @@ module Facebase
     def authenticate_admin!
       if Facebase.password && Facebase.username
         authenticate_or_request_with_http_basic do |username, password|
-          username == Virality.username && password == Virality.password
+          username == Facebase.username && password == Facebase.password
         end
       end
     end
