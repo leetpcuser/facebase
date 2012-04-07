@@ -49,6 +49,7 @@ module Facebase
 
       redirect_to uri.to_s
     rescue => e
+      #TODO SHOULD TRY to go to url and then hit fall back
       pp "Falling back to backup, Error occured, #{e.message}"
       pp e.backtrace
       redirect_to Facebase.tracker_fall_back_site

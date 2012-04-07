@@ -1,6 +1,11 @@
 # Facebase configuration
 Facebase.configure do |config|
 
+  # Authentication (optional)(recommended)
+  # Enables basic authentication throughout the site on admin features
+  config.username = "myusername"
+  config.password = "mypassword"
+
   # tracking_host: (Required)
   # The hostname and port (if necessary) of the server Facebase
   # will make requests to for email tracking. DON'T PREFIX PROTOCOL

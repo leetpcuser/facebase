@@ -1,6 +1,7 @@
 module Facebase
   class ShardsController < ApplicationController
     before_filter :authenticate_admin!
+
     # GET /shards
     # GET /shards.json
     def index
