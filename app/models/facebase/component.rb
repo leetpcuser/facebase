@@ -1,5 +1,12 @@
 module Facebase
   class Component < ActiveRecord::Base
+
+    # Allows for a centralized configuration server
+    if Facebase.config_database_uri.present?
+      establish_connection(Facebase.config_database_uri)
+    end
+
+
     belongs_to :stream
     has_one :campaign, :through => :stream
 
@@ -11,7 +18,7 @@ module Facebase
         shard_class.where(:campaign => self.campaign.name,
                           :stream => self.stream.name,
                           :component => self.name).find_each do |email|
-         total += email.email_actions.where(:action_type => MAIL_SPY_OPEN).count
+          total += email.email_actions.where(:action_type => MAIL_SPY_OPEN).count
         end
       end
 
