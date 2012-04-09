@@ -13,7 +13,7 @@ namespace :facebase do
           ActiveRecord::Base.connection.execute("CREATE DATABASE #{shard.database}")
         end
       end
-      Process.wait
+      Process.waitall
     end
 
     desc "Drop shard databases"
@@ -28,7 +28,7 @@ namespace :facebase do
           ActiveRecord::Base.connection.execute("DROP DATABASE #{shard.database}")
         end
       end
-      Process.wait
+      Process.waitall
     end
 
     desc "Migrate all profile shards to latest"
@@ -42,7 +42,7 @@ namespace :facebase do
           _migrate('db/shard_migrations', shard.connection_spec)
         end
       end
-      Process.wait
+      Process.waitall
     end
 
     desc "Initialize New Shards"
@@ -71,7 +71,7 @@ namespace :facebase do
             _migrate('db/shard_migrations', shard.connection_spec)
           end
         end
-        Process.wait
+        Process.waitall
       end
     end
 
