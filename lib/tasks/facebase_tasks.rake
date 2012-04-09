@@ -1,4 +1,13 @@
 namespace :facebase do
+
+  namespace :analytics do
+    desc "When passed a valid shard index it updates analytics from that shard"
+    task :update, [:shard_index] => :environment do |t, args|
+      Facebase::EmailAction.update_segmented_analytics(args.shard_index.to_i)
+    end
+  end
+
+
   namespace :db do
 
     desc "Create shard databases"

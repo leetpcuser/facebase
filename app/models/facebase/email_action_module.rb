@@ -43,8 +43,79 @@ module Facebase
     end
 
     module ClassMethods
-
       # ----------------------------------------- Analytics
+
+      # Method used email actions to update our analytics for campaigns, streams
+      # and components. Since this may take time we pass shard_id to allow
+      # multiple computers to handle each process.
+      def update_segmented_analytics(shard_id)
+        shard_class = Facebase::Email.shard_for_shard_id(shard_id)
+        shard_class.where(:is_analyzed => false).includes(:email).find_each do |email_action|
+          update_segment(email_action)
+        end
+      end
+
+      protected
+
+      # Does the heavy lifting, counting, searching and saving all related records
+      def update_segment(email_action)
+        # Lookup all records
+        email = email_action.email
+        campaign = Facebase::Campaign.where(:name => email.campaign).first
+        stream = campaign.where(:name => email.stream).first
+        component = stream.where(:name => email.component).first
+
+        # Count the actions we analyze
+        opens = 0
+        clicks = 0
+        unsubscribes = 0
+        spams = 0
+        delivered = 0
+
+        if email_action.action_type.include? ACTION_TYPE_OPEN
+          opens += email_action.count || 1
+        elsif email_action.action_type.include? ACTION_TYPE_CLICK
+          clicks += email_action.count || 1
+        elsif email_action.action_type.include? ACTION_TYPE_UNSUBSCRIBE
+          unsubscribes += email_action.count || 1
+        elsif email_action.action_type.include? ACTION_TYPE_SPAM
+          spams += email_action.count || 1
+        elsif email_action.action_type.include? ACTION_TYPE_DELIVERED
+          delivered += email_action.count || 1
+        end
+
+        email_action.update_attribute(:is_analyzed, true)
+
+        # Rails transactions aren't functional across database connections
+        # so nesting the email_action update call in the following transaction
+        # won't do anything
+        Facebase::Campaign.transaction do
+          # Update the campaigns
+          campaign.opens += opens
+          campaign.clicks += clicks
+          campaign.unsubscribes += unsubscribes
+          campaign.spams += spams
+          campaign.delivered += delivered
+          campaign.save!
+
+          # Update the streams
+          stream.opens += opens
+          stream.clicks += clicks
+          stream.unsubscribes += unsubscribes
+          stream.spams += spams
+          stream.delivered += delivered
+          stream.save!
+
+          # Update the components
+          component.opens += opens
+          component.clicks += clicks
+          component.unsubscribes += unsubscribes
+          component.spams += spams
+          component.delivered += delivered
+          component.save!
+        end
+      end
+
 
     end
 
