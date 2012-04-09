@@ -9,8 +9,8 @@ module Facebase
       # table definitions should be declared here. Some of the rails magic breaks
       # because we are dynamically defining new classes right under rails nose
 
-      serialize :headers, Hash
-      serialize :template_values, Hash
+      serialize :headers, JSON
+      serialize :template_values, JSON
 
       self.table_name = "facebase_emails"
 
