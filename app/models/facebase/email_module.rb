@@ -109,10 +109,21 @@ module Facebase
       rescue => e
         pp e.message
         pp e.backtrace
-        self.failed = true
-        self.error_message = e.try(:message)
-        self.error_backtrace = e.try(:backtrace)
-        self.save!
+        
+        # We use update column to prevent save errors with serialization and
+        # invalid bytes on other columns
+        self.update_column(:failed, true)
+
+        # Try to save why we failed, if it fails don't return a error
+        begin
+          self.error_message = e.try(:message)
+          self.error_backtrace = e.try(:backtrace)
+          self.save!
+        rescue => exp2
+          pp exp2.message
+          pp exp2.backtrace
+        end
+
       end
     end
 
