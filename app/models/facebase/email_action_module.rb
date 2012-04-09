@@ -66,8 +66,8 @@ module Facebase
         return if campaign.blank?
         stream = campaign.streams.where(:name => email.stream).first
         return if stream.blank?
-        component = stream.components.where(:name => email.component).first
-        return if component.blank?
+        components = stream.components.where(:name => email.component).all
+        return if components.blank?
 
         # Count the actions we analyze
         opens = 0
@@ -90,37 +90,28 @@ module Facebase
 
         email_action.update_attribute(:is_analyzed, true)
 
+        # Create a list of models to update
+        config_models = []
+        config_models << campaign
+        config_models << stream
+        config_models += components
+
         # Rails transactions aren't functional across database connections
         # so nesting the email_action update call in the following transaction
         # won't do anything
         Facebase::Campaign.transaction do
-          # Update the campaigns
-          campaign.opens += opens
-          campaign.clicks += clicks
-          campaign.unsubscribes += unsubscribes
-          campaign.spams += spams
-          campaign.delivered += delivered
-          campaign.save!
 
-          # Update the streams
-          stream.opens += opens
-          stream.clicks += clicks
-          stream.unsubscribes += unsubscribes
-          stream.spams += spams
-          stream.delivered += delivered
-          stream.save!
-
-          # Update the components
-          component.opens += opens
-          component.clicks += clicks
-          component.unsubscribes += unsubscribes
-          component.spams += spams
-          component.delivered += delivered
-          component.save!
+          # All analytics models currently have the same schema.
+          config_models.each do |model|
+            model.opens += opens
+            model.clicks += clicks
+            model.unsubscribes += unsubscribes
+            model.spams += spams
+            model.delivered += delivered
+            model.save!
+          end
         end
       end
-
-
     end
 
   end
