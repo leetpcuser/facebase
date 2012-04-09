@@ -34,6 +34,8 @@ module Facebase
     # GET /streams/new.json
     def new
       @stream = Stream.new
+      @component.campaign_id = session[:campaign_id] if session[:campaign_id]
+
 
       respond_to do |format|
         format.html # new.html.erb

@@ -33,6 +33,7 @@ module Facebase
     # GET /components/new.json
     def new
       @component = Component.new
+      @component.stream_id = session[:stream_id] if session[:stream_id]
 
       respond_to do |format|
         format.html # new.html.erb
