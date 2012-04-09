@@ -64,9 +64,9 @@ module Facebase
         return if email.blank?
         campaign = Facebase::Campaign.where(:name => email.campaign).first
         return if campaign.blank?
-        stream = campaign.where(:name => email.stream).first
+        stream = campaign.streams.where(:name => email.stream).first
         return if stream.blank?
-        component = stream.where(:name => email.component).first
+        component = stream.components.where(:name => email.component).first
         return if component.blank?
 
         # Count the actions we analyze
