@@ -59,6 +59,10 @@ module Facebase
 
       # Does the heavy lifting, counting, searching and saving all related records
       def update_segment(email_action)
+
+        # Don't ever double count
+        return if email_action.is_analyzed
+
         # Lookup all records
         email = email_action.email
         return if email.blank?
