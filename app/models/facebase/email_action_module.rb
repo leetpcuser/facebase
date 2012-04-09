@@ -61,9 +61,13 @@ module Facebase
       def update_segment(email_action)
         # Lookup all records
         email = email_action.email
+        return if email.blank?
         campaign = Facebase::Campaign.where(:name => email.campaign).first
+        return if campaign.blank?
         stream = campaign.where(:name => email.stream).first
+        return if stream.blank?
         component = stream.where(:name => email.component).first
+        return if component.blank?
 
         # Count the actions we analyze
         opens = 0
