@@ -11,12 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120331041868) do
+ActiveRecord::Schema.define(:version => 20120409214330) do
 
   create_table "facebase_campaigns", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "opens",        :default => 0, :null => false
+    t.integer  "clicks",       :default => 0, :null => false
+    t.integer  "unsubscribes", :default => 0, :null => false
+    t.integer  "spams",        :default => 0, :null => false
+    t.integer  "delivered",    :default => 0, :null => false
   end
 
   create_table "facebase_components", :force => true do |t|
@@ -25,8 +30,13 @@ ActiveRecord::Schema.define(:version => 20120331041868) do
     t.text     "uri"
     t.boolean  "editable"
     t.integer  "stream_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "opens",        :default => 0, :null => false
+    t.integer  "clicks",       :default => 0, :null => false
+    t.integer  "unsubscribes", :default => 0, :null => false
+    t.integer  "spams",        :default => 0, :null => false
+    t.integer  "delivered",    :default => 0, :null => false
   end
 
   create_table "facebase_email_service_providers", :force => true do |t|
@@ -66,8 +76,13 @@ ActiveRecord::Schema.define(:version => 20120331041868) do
   create_table "facebase_streams", :force => true do |t|
     t.string   "name"
     t.integer  "campaign_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "opens",        :default => 0, :null => false
+    t.integer  "clicks",       :default => 0, :null => false
+    t.integer  "unsubscribes", :default => 0, :null => false
+    t.integer  "spams",        :default => 0, :null => false
+    t.integer  "delivered",    :default => 0, :null => false
   end
 
 end

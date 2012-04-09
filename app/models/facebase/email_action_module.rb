@@ -41,6 +41,13 @@ module Facebase
 
       belongs_to :email, :class_name => "Facebase::Email#{shard.asc_index}", :foreign_key => "email_id"
     end
+
+    module ClassMethods
+
+      # ----------------------------------------- Analytics
+
+    end
+
   end
 end
 
