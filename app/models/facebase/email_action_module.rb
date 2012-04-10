@@ -49,7 +49,7 @@ module Facebase
       # and components. Since this may take time we pass shard_id to allow
       # multiple computers to handle each process.
       def update_segmented_analytics(shard_id)
-        shard_class = Facebase::Email.shard_for_shard_id(shard_id)
+        shard_class = Facebase::EmailAction.shard_for_shard_id(shard_id)
         shard_class.where(:is_analyzed => false).includes(:email).find_each do |email_action|
           update_segment(email_action)
         end
