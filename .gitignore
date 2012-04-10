@@ -9,3 +9,4 @@ test/dummy/.sass-cache
 test/dummy/config/database.yml
 test/dummy/config/initializers/facebase.rb
 Gemfile.lock
+*~
