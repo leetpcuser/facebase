@@ -7,6 +7,17 @@
 
 <br>
 
+<div>
+  <% if @error %>
+    Errors were detected -- Message and backtrace follow: <br><br>
+    <%= @error.message %>
+    <br><br>
+    <%= raw @error.backtrace.join("<br>") %>
+  <% end %>
+</div>
+
+<br>
+
 <form id="preview-form" action="#">
   <table>
     <tr>
@@ -25,28 +36,28 @@
         <input name="subject_line" type="text">
       </td>
 
-    <% @template_keys.each_with_index do |key, i| %>
+      <% @template_keys.each_with_index do |key, i| %>
 
-      <% if i%2 != 0  %>
-    <tr>
+        <% if i % 2 != 0 %>
+        <tr>
       <% end %>
 
-      <th <% if i%2 == 0 %>class="left_space"<% end %>><label><%= key.to_s %></label></th>
+      <th <%= (i % 2 == 0) ? "class='left_space'" : "" %>>
+        <label><%= key.to_s %></label>
+      </th>
+
       <td>
         <input type="text" name="template_values[<%= key.to_s %>]" value="<%= key.to_s.humanize %>"/>
       </td>
 
-      <% if i%2 == 0 %>
-    </tr>
+      <% if i % 2 == 0 %>
+        </tr>
       <% end %>
-       
-      <% if i == 0 %>
-    </tr>
-      <% end %>
-        
+
     <% end %>
+    </tr>
   </table>
-  
+
   <div id="toggle_navigation">
     <a href="#" id="editor_link" class="selected">Editor</a>
     <a href="#" id="preview_link">Previewer</a>
@@ -59,11 +70,13 @@
 
   <div id="editor-complete">
     <div id="editor-wrapper">
-      <% # IMPORTANT: There can be NO spaces between the template and editor div %>
+      <% # IMPORTANT: There can be NO spaces between the template and editor div   %>
       <div id="editor"><%= @template %></div>
     </div>
 
-    <div id="preview"><iframe id="preview-frame"></iframe></div>
+    <div id="preview">
+      <iframe id="preview-frame"></iframe>
+    </div>
 
     <button id="save-template">Save</button>
   </div>
@@ -80,17 +93,24 @@
         <input id="direct-button" type="submit" value="Email to:"/>
       </td>
       <td>
-        <input name="email_address" id="email_address" type="text" value="" />
+        <input name="email_address" id="email_address" type="text" value=""/>
       </td>
     </tr>
   </table>
 </form>
 
+
+
+<div id="edit_links">
+  <%= link_to 'Show', @component %>
+  <%= link_to 'Back', components_path %>
+</div>
+
+
 <script type="text/javascript">
 
   $(function () {
-    function loadPreview()
-    {
+    function loadPreview() {
       var dataArray = buildFormDataArray();
 
       $.ajax({
@@ -109,8 +129,7 @@
       });
     }
 
-    function updateResolution(currentID)
-    {
+    function updateResolution(currentID) {
       var sizeVars = $(currentID).attr("id");
       sizeVars = sizeVars.split("_");
       var height = sizeVars[1];
@@ -125,31 +144,31 @@
       $(currentID).addClass("selected");
     }
 
-    $("#screen_resolutions a").click(function() {
-        updateResolution(this);
+    $("#screen_resolutions a").click(function () {
+      updateResolution(this);
 
-        return false;
+      return false;
     });
 
-    $("#preview_link").click(function() {
-        $("#editor_link").removeClass();
-        $("#preview_link").addClass("selected");
-        $("#screen_resolutions").show();
-        $("#editor-wrapper").hide();
-        $("#preview").show();
+    $("#preview_link").click(function () {
+      $("#editor_link").removeClass();
+      $("#preview_link").addClass("selected");
+      $("#screen_resolutions").show();
+      $("#editor-wrapper").hide();
+      $("#preview").show();
 
-        loadPreview();
-        return false;
+      loadPreview();
+      return false;
     });
 
-    $("#editor_link").click(function() {
-        $("#preview_link").removeClass();
-        $("#editor_link").addClass("selected");
-        $("#screen_resolutions").hide();
-        $("#preview").hide();
-        $("#editor-wrapper").show();
+    $("#editor_link").click(function () {
+      $("#preview_link").removeClass();
+      $("#editor_link").addClass("selected");
+      $("#screen_resolutions").hide();
+      $("#preview").hide();
+      $("#editor-wrapper").show();
 
-        return false;
+      return false;
     });
 
     //Boot Ace
@@ -195,7 +214,7 @@
           $("#litmus_loading").html("Litmus test submitted. Check Litmus.com.");
         },
         error:function () {
-            $("#litmus_loading").html("Litmus test did not submit. There was an error.")
+          $("#litmus_loading").html("Litmus test did not submit. There was an error.")
         }
       });
       return false;
@@ -254,79 +273,71 @@
     }
 
 
-    $.ctrl = function(key, callback, args) {
+    $.ctrl = function (key, callback, args) {
       var isCtrl = false;
 
-      $(document).keydown(function(e) {
-        if(!args) args=[];
+      $(document).keydown(
+        function (e) {
+          if (!args) args = [];
 
-        if(e.ctrlKey) isCtrl = true;
+          if (e.ctrlKey) isCtrl = true;
 
-        if(e.keyCode == key.charCodeAt(0) && isCtrl) {
-          callback.apply(this, args);
-          return false;
-        }
-      }).keyup(function(e) {
-        if(e.ctrlKey) isCtrl = false;
+          if (e.keyCode == key.charCodeAt(0) && isCtrl) {
+            callback.apply(this, args);
+            return false;
+          }
+        }).keyup(function (e) {
+          if (e.ctrlKey) isCtrl = false;
         });
-      };
+    };
 
-      $.ctrl('L', function() {
-          $("#preview_link").removeClass();
-          $("#editor_link").addClass("selected");
-          $("#screen_resolutions").hide();
-          $("#preview").hide();
-          $("#editor-wrapper").show();
-      });
+    $.ctrl('L', function () {
+      $("#preview_link").removeClass();
+      $("#editor_link").addClass("selected");
+      $("#screen_resolutions").hide();
+      $("#preview").hide();
+      $("#editor-wrapper").show();
+    });
 
-      $.ctrl('H', function() {
-          $("#editor_link").removeClass();
-          $("#preview_link").addClass("selected");
-          $("#screen_resolutions").show();
-          $("#editor-wrapper").hide();
-          $("#preview").show();
+    $.ctrl('H', function () {
+      $("#editor_link").removeClass();
+      $("#preview_link").addClass("selected");
+      $("#screen_resolutions").show();
+      $("#editor-wrapper").hide();
+      $("#preview").show();
 
-          var dataArray = buildFormDataArray();
+      var dataArray = buildFormDataArray();
 
-          $.ajax({
-              url:"<%= preview_component_path(@component) %>",
-              type:"POST",
-              data:dataArray,
-              success:function (result) {
-                  var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
-                  previewDocucment.open();
-                  previewDocucment.write(result);
-                  previewDocucment.close();
-              },
-              error:function () {
-                  console.log("error");
-              }
-          });
-      });
-
-      $.ctrl('K', function() {
-        var id = $("#screen_resolutions .selected").attr("id");
-        var next_id = $("a#" + id).next().attr("id");
-
-        if (typeof next_id == "undefined")
-        {
-            next_id = $("#screen_resolutions a:first").attr("id");
+      $.ajax({
+        url:"<%= preview_component_path(@component) %>",
+        type:"POST",
+        data:dataArray,
+        success:function (result) {
+          var previewDocucment = document.getElementById("preview-frame").contentWindow.document;
+          previewDocucment.open();
+          previewDocucment.write(result);
+          previewDocucment.close();
+        },
+        error:function () {
+          console.log("error");
         }
-
-        $("#screen_resolutions a").removeClass();
-        $("#" + next_id).addClass("selected");
-
-        updateResolution("#" + next_id);
-        return false;
       });
+    });
+
+    $.ctrl('K', function () {
+      var id = $("#screen_resolutions .selected").attr("id");
+      var next_id = $("a#" + id).next().attr("id");
+
+      if (typeof next_id == "undefined") {
+        next_id = $("#screen_resolutions a:first").attr("id");
+      }
+
+      $("#screen_resolutions a").removeClass();
+      $("#" + next_id).addClass("selected");
+
+      updateResolution("#" + next_id);
+      return false;
+    });
   });
 
 </script>
-
-<div id="edit_links">
-  <%= link_to 'Show', @component %>
-  <%= link_to 'Back', components_path %>
-</div>
-
-
-

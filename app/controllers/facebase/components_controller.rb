@@ -10,7 +10,7 @@ module Facebase
         @components = Component.where(:stream_id => @stream_id).all
 
         @stream = Stream.find(@stream_id)
-        @breadcrumbs = [{"link"=>'#', "name"=>@stream.campaign.name}, {"link" => "/facebase/streams?campaign_id=#{@stream.campaign.id}", "name" => @stream.name}]
+        @breadcrumbs = [{"link" => '#', "name" => @stream.campaign.name}, {"link" => "/facebase/streams?campaign_id=#{@stream.campaign.id}", "name" => @stream.name}]
       else
         @components = Component.all
       end
@@ -55,7 +55,18 @@ module Facebase
         true
       )
 
-      @template_keys = @component.template_keys
+      @template_keys = []
+
+      # Template keys can throw a execution if the template is malformed
+      # in that case catch the error and render it for the users
+      begin
+        @template_keys = @component.template_keys
+      rescue => e
+        pp "Error: Couldn't sniff template keys"
+        pp e.message
+        pp e.backtrace
+        @error = e
+      end
     end
 
 
