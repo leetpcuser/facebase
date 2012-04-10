@@ -8,6 +8,9 @@ module Facebase
       if session[:stream_id]
         @stream_id = session[:stream_id]
         @components = Component.where(:stream_id => @stream_id).all
+
+        @stream = Stream.find(@stream_id)
+        @breadcrumbs = [{"link"=>'#', "name"=>@stream.campaign.name}, {"link" => "/facebase/streams?campaign_id=#{@stream.campaign.id}", "name" => @stream.name}]
       else
         @components = Component.all
       end

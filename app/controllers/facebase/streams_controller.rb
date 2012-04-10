@@ -8,6 +8,9 @@ module Facebase
       if session[:campaign_id]
         @campaign_id = session[:campaign_id]
         @streams = Stream.where(:campaign_id => @campaign_id).all
+
+        @campaign = Campaign.find(@campaign_id)
+        @breadcrumbs = [{"link" => "#", "name" => @campaign.name}]
       else
         @streams = Stream.all
       end

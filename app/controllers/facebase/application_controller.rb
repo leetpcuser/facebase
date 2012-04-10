@@ -2,6 +2,7 @@ module Facebase
   class ApplicationController < ActionController::Base
 
     before_filter :set_admin_session
+    @breadcrumbs = Array.new
 
     #Authenticates users if you have setup the initializer correctly
     def authenticate_admin!

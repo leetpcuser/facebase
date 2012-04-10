@@ -53,6 +53,32 @@
 
     <div id="content_wrapper">
         <div id="content">
+          <%
+           if !@breadcrumbs.nil?
+          %>
+
+            <div id="breadcrumbs">
+              <ul>
+                <% @breadcrumbs.each_with_index do |breadcrumb, i| %>
+                  <li>
+                    <% if breadcrumb["link"] != '#'%><a href='<%=breadcrumb["link"]%>'><% end %>
+                    <%=breadcrumb["name"]%>
+                    <% if breadcrumb["link"] != '#'%></a><%
+                  end
+
+                  if i != @breadcrumbs.length - 1
+                %>
+
+                &gt;
+
+                <% end %>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <% end %>
+          
           <%= yield %>
         </div>
     </div>

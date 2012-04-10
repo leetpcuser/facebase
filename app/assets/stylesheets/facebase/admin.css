@@ -381,3 +381,15 @@ a:hover {
     background: #0c3f5f;
     border: 1px solid #0c3f5f;
 }
+
+#breadcrumbs ul {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+#breadcrumbs ul li {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0 5px 0 0;
+}
