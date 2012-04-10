@@ -1,5 +1,44 @@
 namespace :facebase do
 
+  namespace :emails do
+    desc "Sends scheduled emails for a given shard_id"
+    task :shard_send_scheduled, [:shard_id] => :environment do
+      log = Logger.new(STDOUT)
+      log.level = Logger::DEBUG
+
+      # Create 1 less than the size of the connection pool for the shards
+      # default is 5. Keep the queue to twice the size of active threads
+      wq = WorkQueue.new(4, 8)
+
+      shard_class = Facebase::Email.shard_for_shard_id(args.shard_id.to_i)
+
+      # Find all upcoming unsent, nonfailed emails queue them up 1000 at a time
+      # (default for find_in_batches) and thread the sends. Add rescue blocks
+      # under each iteration to prevent mass failure. Log the errors.
+      shard_class.where(['schedule_at <= ?', Time.now]).
+        where(:sent => false, :failed => false).
+        find_in_batches(:batch_size => batch_size) do |batched_data|
+        begin
+          wq.enqueue_b(batched_data) do |batched_data_t|
+            batched_data_t.each do |email|
+              begin
+                next if email.sent || email.failed
+                email.deliver
+                log.debug(email.to)
+              rescue => e
+                log.debug(e.message)
+                log.debug(e.backtrace)
+              end
+            end
+          end
+        rescue => e
+          log.debug(e.message)
+          log.debug(e.backtrace)
+        end
+      end
+    end
+  end
+
   namespace :analytics do
     desc "When passed a valid shard index it updates analytics from that shard"
     task :update, [:shard_index] => :environment do |t, args|
