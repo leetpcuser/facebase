@@ -12,6 +12,13 @@ body {
     height: 92px;
 }
 
+#header h1 {
+    color: #FFF;
+    font-size: 30px;
+    margin: 0;
+    padding: 40px 0 0 20px;
+}
+
 #header_info {
     margin: 0 auto;
     max-width: 1260px;
