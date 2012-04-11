@@ -1,6 +1,6 @@
 namespace :facebase do
 
-  namespace :emails do
+  namespace :emails do |t, args|
     desc "Sends scheduled emails for a given shard_id"
     task :shard_send_scheduled, [:shard_id] => :environment do
       log = Logger.new(STDOUT)
