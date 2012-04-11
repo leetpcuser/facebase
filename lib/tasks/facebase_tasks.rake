@@ -17,7 +17,7 @@ namespace :facebase do
       # under each iteration to prevent mass failure. Log the errors.
       shard_class.where(['schedule_at <= ?', Time.now]).
         where(:sent => false, :failed => false).
-        find_in_batches(:batch_size => batch_size) do |batched_data|
+        find_in_batches do |batched_data|
         begin
           wq.enqueue_b(batched_data) do |batched_data_t|
             batched_data_t.each do |email|
