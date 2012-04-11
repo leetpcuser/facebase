@@ -3,6 +3,8 @@
 <table class="list_view">
   <tr>
     <th class="first">Name</th>
+    <th>Opens / Clicks / Unsubscribes</th>
+    <th>Spams / Delievered</th>
     <th></th>
     <th class="last"></th>
   </tr>
@@ -11,6 +13,8 @@
 <% row_class = i%2 == 0 ? "even" : "odd" %>
   <tr class="<%= row_class %>">
     <td><%= campaign.name %></td>
+    <td><%= campaign.opens %> / <%= campaign.clicks %> / <%= campaign.unsubscribes %></td>
+    <td><%= campaign.spams %> / <%=  campaign.delivered %></td>
     <td><%= link_to 'Streams', streams_path(:campaign_id => campaign.id) %></td>
     <td><%= link_to 'Show', campaign %> |
       <%= link_to 'Edit', edit_campaign_path(campaign) %> |
