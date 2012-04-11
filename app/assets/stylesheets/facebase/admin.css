@@ -12,6 +12,13 @@ body {
     height: 92px;
 }
 
+#header h1 {
+    color: #FFF;
+    font-size: 30px;
+    margin: 0;
+    padding: 40px 0 0 20px;
+}
+
 #header_info {
     margin: 0 auto;
     max-width: 1260px;
@@ -392,4 +399,36 @@ a:hover {
     list-style: none;
     margin: 0;
     padding: 0 5px 0 0;
+}
+
+.notification {
+    background: #FBF9EE;
+    border: 1px solid #FCEFA1;
+    border-radius: 5px;
+    color: #363636;
+    line-height: 1.5em;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+.error {
+    background: #FEF8F6;
+    border: 1px solid #CD0A0A;
+    border-radius: 5px;
+    color: #363636;
+    height: 90px;
+    line-height: 1.5em;
+    overflow: auto;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }

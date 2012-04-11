@@ -6,6 +6,8 @@
     <th>Suffix </th>
     <th>Uri</th>
     <th>Stream</th>
+    <th>Opens / Clicks / Unsubscribes</th>
+    <th>Spams / Delievered</th>
     <th class="last"></th>
   </tr>
 
@@ -15,6 +17,8 @@
       <td><%= component.suffix %></td>
       <td><%= component.uri %> </td>
       <td><%= component.stream.name %></td>
+      <td><%= component.opens %> / <%= component.clicks %> / <%= component.unsubscribes %></td>
+      <td><%= component.spams %> / <%=  component.delivered %></td>
       <td><%= link_to 'Show', component %> |
         <%= component.editable ? (link_to 'Edit', edit_component_path(component)) + " | " : "" %>
         <%= link_to 'Destroy', component, confirm: 'Are you sure?', method: :delete %>

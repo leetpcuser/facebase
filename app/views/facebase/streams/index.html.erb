@@ -4,6 +4,8 @@
   <tr>
     <th class="first">Name</th>
     <th>Campaign</th>
+    <th>Opens / Clicks / Unsubscribes</th>
+    <th>Spams / Delievered</th>
     <th></th>
     <th class="last"></th>
   </tr>
@@ -13,6 +15,8 @@
   <tr class="<%= row_class %>">
     <td><%= stream.name %></td>
     <td><%= stream.campaign_id %></td>
+    <td><%= stream.opens %> / <%= stream.clicks %> / <%= stream.unsubscribes %></td>
+    <td><%= stream.spams %> / <%=  stream.delivered %></td>
     <td><%= link_to 'Components', components_path(:stream_id => stream.id) %></td>
     <td><%= link_to 'Show', stream %> |
       <%= link_to 'Edit', edit_stream_path(stream) %> |

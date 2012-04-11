@@ -5,18 +5,18 @@
 
 <h1>Editing <%= "#{@component.campaign.name} => #{@component.stream.name} => #{@component.name}" %></h1>
 
-<br>
+<br />
 
-<div>
-  <% if @error %>
-    Errors were detected -- Message and backtrace follow: <br><br>
-    <%= @error.message %>
-    <br><br>
-    <%= raw @error.backtrace.join("<br>") %>
-  <% end %>
+<% if @error %>
+<div class="error">
+  Errors were detected -- Message and backtrace follow: <br><br>
+  <%= @error.message %>
+  <br /><br />
+  <%= raw @error.backtrace.join("<br>") %>
 </div>
+<% end %>
 
-<br>
+<br />
 
 <form id="preview-form" action="#">
   <table>
@@ -58,6 +58,15 @@
     </tr>
   </table>
 
+  <div class="notification">
+    <p>
+      <strong>Keyboard Shortcuts</strong><br />
+      <em>Ctrl + L:</em> Editor<br />
+      <em>Ctrl + H:</em> Previewer<br />
+      &nbsp;<em>Ctrl + K:</em> Cycle through resolutions
+    </p>
+  </div>
+
   <div id="toggle_navigation">
     <a href="#" id="editor_link" class="selected">Editor</a>
     <a href="#" id="preview_link">Previewer</a>
@@ -98,8 +107,6 @@
     </tr>
   </table>
 </form>
-
-
 
 <div id="edit_links">
   <%= link_to 'Show', @component %>
