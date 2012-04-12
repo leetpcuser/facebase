@@ -2,9 +2,28 @@
 Facebase::Profile0.delete_all
 Facebase::Contact0.delete_all
 Facebase::Email0.delete_all
+Facebase::Shard.delete_all
+
+3.times do |i|
+  Facebase::Shard.create(
+    initialized: true,
+    host: "127.0.0.1",
+    socket: "",
+    adapter: "mysql2",
+    username: "root",
+    password: "",
+    database: "facebase#{ i + 1 }",
+    port: nil,
+    pool: 5,
+    encoding: "utf8",
+    reconnect: true,
+    principle_model: "profile"
+  )
+end
+
 
 # creates a single profile, with some contacts and a couple emails
-profile = Facebase::Profile0.create(
+profile = Facebase::Profile0.create!(
   {
     facebook_id: 203810,
     name: "First Last",
@@ -23,7 +42,7 @@ profile = Facebase::Profile0.create(
     location: nil,
   })
 
-contact = Facebase::Contact0.create(
+contact = Facebase::Contact0.create!(
   {
     profile_id: profile.id,
     facebook_id: 203810,
@@ -45,7 +64,7 @@ contact = Facebase::Contact0.create(
 )
 
 10.times do |i|
-  contact.emails.create(
+  contact.emails.create!(
     to: "something@sbcglobal.net",
     from: "susan@davia.com",
     subject: "Put a decadent twist in a traditional St Patrick's ...",
@@ -56,7 +75,7 @@ contact = Facebase::Contact0.create(
     campaign: "2012-st-pattys",
     stream: "a-first-touch",
     component: "pattys_a",
-    schedule_at: nil,
+    schedule_at: Time.now,
     pruned: false,
     locked: false,
     sent: (i % 2 == 0),
