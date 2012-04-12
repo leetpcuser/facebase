@@ -36,6 +36,8 @@ namespace :facebase do
           log.debug(e.backtrace)
         end
       end
+
+      wq.join
     end
   end
 
