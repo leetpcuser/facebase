@@ -1,98 +1,128 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Facebase</title>
-    <%= stylesheet_link_tag    "facebase/application", :media => "all" %>
-    <%= javascript_include_tag "facebase/application" %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <div id="header">
-      <h1>Facebase by davia-black</h1>
+<head>
+  <title>Facebase</title>
+  <%= stylesheet_link_tag "facebase/application", :media => "all" %>
+  <%= javascript_include_tag "facebase/application" %>
+  <%= csrf_meta_tags %>
+  <script type="text/javascript" src="/assets/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="/assets/jquery.selectbox-0.5_style_2.js"></script>
+</head>
+<body>
+<div id="header">
+  <h1>Facebase by davia-black</h1>
+
+  <div id="search">
+    <form action="#" method="get">
+      <table cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td>
+            <input type="text" value="Search" name="contact_search" id="contact_search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }"/>
+          </td>
+          <td>
+            <select name="contact_type" id="contact_type" class="contact_type">
+              <option value="name">Name</option>
+              <option value="email">Email</option>
+            </select>
+          </td>
+          <td><input type="submit" value="search" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div id="nav_wrapper">
+  <div id="nav">
+    <div id="table">
+      <ul>
+        <li>
+          <a href="/facebase/campaigns/"><span>Campaigns</span></a>
+
+          <% #<div class="subnav_wrapper">
+             #<ul>
+             #  <li><a href="#">Dummy Link</a></li>
+             # <li><a href="#">Dummy Link</a></li>
+             #  <li><a href="#">Dummy Link</a></li>
+             # </ul>
+             # </div>       %>
+        </li>
+      </ul>
+
+      <div class="nav_divider"></div>
+
+      <ul>
+        <li><a href="/facebase/contacts/"><span>Contacts</span></a></li>
+      </ul>
+
+      <div class="nav_divider"></div>
+
+      <ul>
+        <li><a href="/facebase/email_service_providers/"><span>Email Service Providers</span></a></li>
+      </ul>
+
+      <div class="nav_divider"></div>
+
+      <ul>
+        <li><a href="/facebase/shards/"><span>Shards</span></a></li>
+      </ul>
     </div>
+  </div>
+</div>
 
-    <div class="clear"></div>
+<div class="clear"></div>
 
-    <div id="nav_wrapper">
-      <div id="nav">
-        <div id="table">
+<div id="content_wrapper">
+  <div id="content">
+    <%
+       if !@breadcrumbs.nil?
+    %>
+
+        <div id="breadcrumbs">
           <ul>
-            <li>
-              <a href="/facebase/campaigns/"><span>Campaigns</span></a>
+            <% @breadcrumbs.each_with_index do |breadcrumb, i| %>
+                <li>
+                  <% if breadcrumb["link"] != '#' %>
+                      <a href='<%= breadcrumb["link"] %>'>
+                  <% end %>
+                  <%= breadcrumb["name"] %>
+                  <% if breadcrumb["link"] != '#' %></a>
+                  <%
+                     end
 
-              <% #<div class="subnav_wrapper">
-                #<ul>
-                #  <li><a href="#">Dummy Link</a></li>
-                 # <li><a href="#">Dummy Link</a></li>
-                #  <li><a href="#">Dummy Link</a></li>
-               # </ul>
-             # </div> %>
-            </li>
-          </ul>
+                     if i != @breadcrumbs.length - 1
+                  %>
 
-          <div class="nav_divider"></div>
+                      &gt;
 
-          <ul>
-            <li><a href="/facebase/contacts/"><span>Contacts</span></a></li>
-          </ul>
-
-          <div class="nav_divider"></div>
-
-          <ul>
-            <li><a href="/facebase/email_service_providers/"><span>Email Service Providers</span></a></li>
-          </ul>
-
-          <div class="nav_divider"></div>
-
-          <ul>
-            <li><a href="/facebase/shards/"><span>Shards</span></a></li>
+                  <% end %>
+                </li>
+            <% end %>
           </ul>
         </div>
-      </div>
-    </div>
 
-    <div class="clear"></div>
+    <% end %>
 
-    <div id="content_wrapper">
-        <div id="content">
-          <%
-           if !@breadcrumbs.nil?
-          %>
+    <%= yield %>
+  </div>
+</div>
 
-            <div id="breadcrumbs">
-              <ul>
-                <% @breadcrumbs.each_with_index do |breadcrumb, i| %>
-                  <li>
-                    <% if breadcrumb["link"] != '#'%><a href='<%=breadcrumb["link"]%>'><% end %>
-                    <%=breadcrumb["name"]%>
-                    <% if breadcrumb["link"] != '#'%></a><%
-                  end
+<div class="clear"></div>
 
-                  if i != @breadcrumbs.length - 1
-                %>
+<div id="footer">
+  <div id="footer_content">
+    Developed by Timothy Cardenas and Bryan Northey
+  </div>
 
-                &gt;
+  <div class="clear"></div>
+</div>
 
-                <% end %>
-                  </li>
-              <% end %>
-            </ul>
-          </div>
-
-          <% end %>
-          
-          <%= yield %>
-        </div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div id="footer">
-      <div id="footer_content">
-        Developed by Timothy Cardenas and Bryan Northey
-      </div>
-
-      <div class="clear"></div>
-    </div>
-  </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.contact_type').selectbox({ inputClass:"selectbox_styled" });
+    });
+</script>
+</body>
 </html>
