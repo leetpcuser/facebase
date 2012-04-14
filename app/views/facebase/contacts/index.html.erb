@@ -1,13 +1,13 @@
-  <div id="search_results">
-    <% if @search %>
+<div id="search_results">
+  <% if @search %>
       Email like :
       <input type='text'
              id='search_term'
-             value="<%= @search[:email]? @search[:email] : "" %>"/>
+             value="<%= @search[:email] ? @search[:email] : "" %>"/>
       <input type="button" value="Search" id="search_submit">
-    <% end %>
-  </div>
-  
+  <% end %>
+</div>
+
 <h1>Listing Contacts</h1>
 
 <table class="list_view">
@@ -23,91 +23,94 @@
     <th class="last"></th>
   </tr>
 
-<% @contacts.each do |contact| %>
-  <tr>
-    <td><%= contact.profile_id %></td>
-    <td><%= contact.email_address %> / <%= contact.phone %></td>
-    <td><%= contact.purchase_count %> / <%= contact.purchase_total %></td>
-    <td>
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.unsubscribe_phone? ? "checked='checked'" : "" %>> /
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.unsubscribe_facebook? ? "checked='checked'" : "" %>> /
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.unsubscribed_email? ? "checked='checked'" : "" %>>
-    </td>
-    <td>
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.invalid_email? ? "checked='checked'" : "" %>> /
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.spam_email? ? "checked='checked'" : "" %>> /
-      <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
-      <%= contact.bounced_email? ? "checked='checked'" : "" %>>
-    </td>
-    <td><%= contact.emails_delivered %></td>
-    <td><%= contact.times_emails_opened %> / <%= contact.times_emails_clicked %></td>
-    <td><%= contact.last_contacted_at %></td>
-    <td><%= link_to "show", "/facebase/contacts/" + contact.profile_id.to_s %> <%#= link_to 'Edit', edit_contact_path(contact) %> <%#= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.profile_id %></td>
+        <td><%= contact.email_address %> / <%= contact.phone %></td>
+        <td><%= contact.purchase_count %> / <%= contact.purchase_total %></td>
+        <td>
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.unsubscribe_phone? ? "checked='checked'" : "" %>> /
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.unsubscribe_facebook? ? "checked='checked'" : "" %>> /
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.unsubscribed_email? ? "checked='checked'" : "" %>>
+        </td>
+        <td>
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.invalid_email? ? "checked='checked'" : "" %>> /
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.spam_email? ? "checked='checked'" : "" %>> /
+          <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
+                 <%= contact.bounced_email? ? "checked='checked'" : "" %>>
+        </td>
+        <td><%= contact.emails_delivered %></td>
+        <td><%= contact.times_emails_opened %> / <%= contact.times_emails_clicked %></td>
+        <td>
+          <% time_format = "%Y-%m-%d %H:%M:%S" %>
+          <%= contact.last_contacted_at.strftime(time_format) %>
+        </td>
+        <td><%= link_to "show", "/facebase/contacts/" + contact.profile_id.to_s %> <%#= link_to 'Edit', edit_contact_path(contact) %> <%#= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
 <%#= link_to 'New Contact', new_contact_path %>
 
 
 <script type="text/javascript">
-  //Provides active and seed logic
-  $(function () {
+    //Provides active and seed logic
+    $(function () {
 
-    $("#search_submit").bind("click",function(){
-       var url = "/facebase/contacts/email_search";
-       url += "?search[email=" + $("#search_term").val();
-       window.location.href = url;
-    });
+        $("#search_submit").bind("click", function () {
+            var url = "/facebase/contacts/email_search";
+            url += "?search[email=" + $("#search_term").val();
+            window.location.href = url;
+        });
 
-    $(".active_selector").change(function () {
-      var experiment_id = $(this).attr("data-id");
-      if ($(this).is(':checked')) {
-        $("[data-id='" + experiment_id + "'].seed_selector").attr('disabled', false);
-        updateExperimentAttribute(experiment_id, "active", true)
+        $(".active_selector").change(function () {
+            var experiment_id = $(this).attr("data-id");
+            if ($(this).is(':checked')) {
+                $("[data-id='" + experiment_id + "'].seed_selector").attr('disabled', false);
+                updateExperimentAttribute(experiment_id, "active", true)
 
-      } else {
-        $("[data-id='" + experiment_id + "'].seed_selector ").attr('checked', false);
-        $("[data-id='" + experiment_id + "'].seed_selector").attr('disabled', true);
-        updateExperimentAttribute(experiment_id, "active", false)
-        updateExperimentAttribute(experiment_id, "seed_weight", 0)
-      }
-    });
+            } else {
+                $("[data-id='" + experiment_id + "'].seed_selector ").attr('checked', false);
+                $("[data-id='" + experiment_id + "'].seed_selector").attr('disabled', true);
+                updateExperimentAttribute(experiment_id, "active", false)
+                updateExperimentAttribute(experiment_id, "seed_weight", 0)
+            }
+        });
 
-    $(".seed_selector").change(function () {
-      var experiment_id = $(this).attr("data-id");
-      if ($(this).is(':checked')) {
-        updateExperimentAttribute(experiment_id, "seed_weight", 1)
-      } else {
-        updateExperimentAttribute(experiment_id, "seed_weight", 0)
-      }
+        $(".seed_selector").change(function () {
+            var experiment_id = $(this).attr("data-id");
+            if ($(this).is(':checked')) {
+                updateExperimentAttribute(experiment_id, "seed_weight", 1)
+            } else {
+                updateExperimentAttribute(experiment_id, "seed_weight", 0)
+            }
 
-    });
+        });
 
-    function updateExperimentAttribute(contact_id, attribute, value) {
-      var data = {};
-      data['virality_experiment'] = {};
-      data['virality_experiment'][attribute] = value;
-      data['id'] = contact_id;
+        function updateExperimentAttribute(contact_id, attribute, value) {
+            var data = {};
+            data['virality_experiment'] = {};
+            data['virality_experiment'][attribute] = value;
+            data['id'] = contact_id;
 
-      $.ajax({
-        type:"POST",
-        url:"<%#= url_for :controller => :contacts, :action => :update, :format => "json"%>",
-        data:data,
-        error:function () {
-          alert("Change didn't take. Try again or contact nerds")
+            $.ajax({
+                type:"POST",
+                url:"<%#= url_for :controller => :contacts, :action => :update, :format => "json"%>",
+                data:data,
+                error:function () {
+                    alert("Change didn't take. Try again or contact nerds")
+                }
+            })
+
         }
-      })
-
-    }
 
 
-  });
+    });
 </script>
