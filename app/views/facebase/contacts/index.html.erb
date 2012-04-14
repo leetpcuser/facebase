@@ -13,7 +13,7 @@
 <table class="list_view">
   <tr>
     <th class="first">Profile</th>
-    <th>Email / Phone</th>
+    <th>Name / Email / Phone</th>
     <th>Purchase Count / Total</th>
     <th>Unsubscribe Phone / Facebook / Email</th>
     <th>Invalid / Spam / Bounced Email</th>
@@ -26,7 +26,7 @@
   <% @contacts.each do |contact| %>
       <tr>
         <td><%= contact.profile_id %></td>
-        <td><%= contact.email_address %> / <%= contact.phone %></td>
+        <td><%= contact.profile.name %> / <%= contact.email_address %> / <%= contact.phone %></td>
         <td><%= contact.purchase_count %> / <%= contact.purchase_total %></td>
         <td>
           <input class="active_selector" type="checkbox" data-id='<%= contact.id %>'
